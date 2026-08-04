@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Благодаря — Switch On</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .card {
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Green check circle */
+    .check-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #f0faf4;
+      border: 2px solid #d1f0dd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .check-circle svg {
+      width: 36px;
+      height: 36px;
+      color: #22a855;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.6); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      font-size: clamp(20px, 2.8vw, 28px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      color: #555;
+      margin-bottom: 36px;
+      animation: fadeUp 0.5s 0.15s ease both;
+    }
+
+    .download-label {
+      font-size: clamp(28px, 4.5vw, 46px);
+      font-weight: 800;
+      color: #111;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+
+    .download-btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 900;
+      color: #d42b22;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+      text-decoration-thickness: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: opacity 0.15s ease;
+      animation: fadeUp 0.5s 0.4s ease both;
+    }
+
+    .download-btn:hover { opacity: 0.75; }
+    .download-btn:active { opacity: 0.55; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e8e8e8, transparent);
+      margin: 40px 0;
+      animation: fadeUp 0.5s 0.45s ease both;
+    }
+
+    .footer-note {
+      font-size: 13px;
+      color: #bbb;
+      animation: fadeUp 0.5s 0.5s ease both;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- Check icon -->
+    <div class="check-circle">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 18l7 7 13-13" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Heading -->
+    <h1>Браво, че предприе тази стъпка!</h1>
+
+    <!-- Download -->
+    <p class="download-label">Може да изтеглиш електронната книга от</p>
+    <a class="download-btn" href="Сайтове и проекти/LeadMagnet/Система Switch On.pdf" download="Система Switch On.pdf">ТУК</a>
+
+    <div class="divider"></div>
+
+    <p class="footer-note">Ако имаш въпроси, свържи се с нас. Очакваме те!</p>
+
+  </div>
+</body>
+</html>

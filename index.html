@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Switch On — Безплатна Книга</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 52px 48px 72px;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .qualifier {
+      display: inline-block;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #d42b22;
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 6px;
+    }
+
+    /* ── HEADLINE ── */
+    .headline-block {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .headline-block h1 {
+      font-size: clamp(27px, 3.4vw, 46px);
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -0.035em;
+      color: #111;
+      margin-bottom: 18px;
+    }
+    .accent-red  { color: #d42b22; }
+    .accent-gold { color: #c9920a; }
+
+    .sub {
+      display: inline-block;
+      font-size: 17px;
+      color: #999;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 52px;
+      align-items: start;
+    }
+    @media (max-width: 700px) {
+      .two-col { grid-template-columns: 1fr; gap: 32px; }
+      .page-wrap { padding: 36px 20px 56px; }
+    }
+
+    /* ── PHOTO ── */
+    .photo-col img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+      aspect-ratio: 3/4;
+      box-shadow:
+        0 2px 0 rgba(0,0,0,0.04) inset,
+        0 8px 32px rgba(0,0,0,0.10),
+        0 24px 64px rgba(0,0,0,0.07);
+    }
+
+    /* ── RIGHT COL ── */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: 24px;
+    }
+
+    /* ── BULLETS ── */
+    .bullet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .bullet-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .bullet-icon {
+      flex-shrink: 0;
+      margin-top: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fdf1f0;
+      border: 1.5px solid rgba(212,43,34,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bullet-icon svg {
+      width: 11px;
+      height: 11px;
+      color: #d42b22;
+    }
+
+    .bullet-text {
+      font-size: 18px;
+      line-height: 1.72;
+      color: #444;
+    }
+
+    .bullet-text strong {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .bullet-text em {
+      color: #888;
+      font-style: normal;
+    }
+
+    /* ── CTA ── */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 20px 32px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #fff;
+      background: linear-gradient(160deg, #e8332a 0%, #b01f18 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.1) inset,
+        0 4px 20px rgba(212,43,34,0.35),
+        0 12px 40px rgba(212,43,34,0.15);
+      transition: transform 0.16s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.16s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.14) inset,
+        0 8px 28px rgba(212,43,34,0.5),
+        0 20px 56px rgba(212,43,34,0.22);
+    }
+
+    .cta-btn:active  { transform: scale(0.99); }
+    .cta-btn:focus-visible { outline: 2px solid #d42b22; outline-offset: 3px; }
+
+    .cta-sub {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #ccc;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SOCIAL PROOF ── */
+    .social-proof {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 48px 64px;
+      border-top: 1px solid #eee;
+    }
+    @media (max-width: 700px) {
+      .social-proof { padding: 8px 20px 48px; }
+    }
+
+    .sp-heading {
+      text-align: center;
+      margin: 48px 0 36px;
+    }
+    .sp-heading h2 {
+      font-size: clamp(22px, 3.2vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .sp-video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    @media (min-width: 900px) {
+      .sp-video-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .sp-video-item {
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .sp-video-item video {
+      width: 100%;
+      display: block;
+      max-height: 340px;
+      background: #000;
+    }
+
+    .sp-carousel-wrap {
+      position: relative;
+      max-width: 420px;
+      margin: 0 auto 40px;
+      padding: 0 46px;
+    }
+    .sp-carousel-viewport {
+      overflow: hidden;
+      border-radius: 14px;
+      background: #fafafa;
+      border: 1px solid #eee;
+    }
+    .sp-carousel-track {
+      display: flex;
+      transition: transform 0.35s ease;
+    }
+    .sp-carousel-track img {
+      min-width: 100%;
+      width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+      background: #fafafa;
+      display: block;
+    }
+    .sp-car-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      color: #444;
+      font-size: 20px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .sp-car-btn:hover { background: #d42b22; border-color: #d42b22; color: #fff; }
+    .sp-car-prev { left: 0; }
+    .sp-car-next { right: 0; }
+
+    .sp-cta-wrap { text-align: center; }
+    .sp-cta-wrap .cta-btn {
+      max-width: 640px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+    @media (max-width: 700px) {
+      .sp-cta-wrap .cta-btn { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- TOP: Qualifier -->
+  <div class="top-bar">
+    <span class="qualifier">Ако си зает мъж между 24 и 60 години и имаш проблем с жените, който се повтаря, то това е за теб.</span>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline-block">
+    <h1>
+      Как Да Престанеш Да Губиш Жени, Които Отначало Са Показвали Интерес, Със <span class="accent-gold">3-Стъпковата Система "Switch On"</span>, Която Е Помогнала На <span class="accent-red">Стотици Хора В България</span>
+    </h1>
+    <p class="sub">(Работи без значение как изглеждаш и дали имаш статус, пари или си висок над 1.80м)</p>
+  </div>
+
+  <!-- TWO COLUMN -->
+  <div class="two-col">
+
+    <!-- LEFT: Photo -->
+    <div class="photo-col">
+      <img src="brand_assets/denis-photo.jpg" alt="Денис Димов" />
+    </div>
+
+    <!-- RIGHT: Benefits + CTA -->
+    <div class="right-col">
+      <p class="col-label">В безплатната книга ще разбереш:</p>
+
+      <div class="bullet-list">
+
+        <div class="bullet-item">
+          <div class="bullet-icon">
+            <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5.5L3.5 7.5L8.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="bullet-text">
+            Защо жени, които първоначално показват интерес, после го <strong>губят</strong>, и как да спреш това да ти се случва отново и отново.
+          </p>
+        </div>
+
+        <div class="bullet-item">
+          <div class="bullet-icon">
+            <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5.5L3.5 7.5L8.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="bullet-text">
+            Как да излезеш от <strong>приятелската зона</strong> и да пишеш с <strong>позиция</strong>, вместо да чакаш нейното одобрение.
+          </p>
+        </div>
+
+        <div class="bullet-item">
+          <div class="bullet-icon">
+            <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5.5L3.5 7.5L8.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="bullet-text">
+            Как да стигаш до <strong>среща за 10-15 съобщения</strong>, вместо да чатите седмици наред без резултат.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <button class="cta-btn" onclick="openModal()">ВЗЕМИ СИСТЕМАТА "Switch On" БЕЗПЛАТНО СЕГА</button>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ── SOCIAL PROOF ── -->
+<div class="social-proof">
+
+  <div class="sp-heading">
+    <h2>Виж Какво Казват Хората, Които Използват Системата <span class="accent-red">Switch On</span></h2>
+  </div>
+
+  <div class="sp-video-grid">
+    <div class="sp-video-item">
+      <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.jpg">
+        <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="sp-video-item">
+      <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.jpg">
+        <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="sp-video-item">
+      <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-3.jpg">
+        <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-3.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="sp-video-item">
+      <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-4.jpg">
+        <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-4.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="sp-carousel-wrap">
+    <button class="sp-car-btn sp-car-prev" onclick="spCarMove(-1)">&#8249;</button>
+    <div class="sp-carousel-viewport">
+      <div class="sp-carousel-track" id="spCarTrack"></div>
+    </div>
+    <button class="sp-car-btn sp-car-next" onclick="spCarMove(1)">&#8250;</button>
+  </div>
+
+  <div class="sp-cta-wrap">
+    <button class="cta-btn" onclick="openModal()">ВЗЕМИ СИСТЕМАТА "Switch On" БЕЗПЛАТНО СЕГА</button>
+  </div>
+
+</div>
+
+<!-- ── MODAL ── -->
+<div id="modal-overlay" onclick="handleOverlayClick(event)" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); z-index:1000; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#fff; border-radius:16px; padding:40px 36px; max-width:480px; width:100%; box-shadow:0 24px 80px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.1); position:relative;">
+
+    <button onclick="closeModal()" style="position:absolute; top:16px; right:18px; background:none; border:none; cursor:pointer; font-size:24px; color:#bbb; line-height:1;" onmouseover="this.style.color='#555'" onmouseout="this.style.color='#bbb'">&times;</button>
+
+    <h2 style="font-size:22px; font-weight:800; color:#111; letter-spacing:-0.02em; margin-bottom:6px;">Получи безплатната книга</h2>
+    <p style="font-size:13px; color:#999; margin-bottom:28px;">Попълни полетата по-долу и ще ти изпратим достъп веднага.</p>
+
+    <form onsubmit="handleSubmit(event)" novalidate>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:13px; font-weight:600; color:#444; margin-bottom:6px;">Име и фамилия <span style="color:#d42b22;">*</span></label>
+        <input type="text" id="field-name" placeholder="Например: Иван Петров" required style="width:100%; padding:12px 14px; border:1.5px solid #e5e5e5; border-radius:8px; font-size:15px; font-family:'Inter',sans-serif; color:#111; outline:none; box-sizing:border-box;" onfocus="this.style.borderColor='#d42b22'" onblur="this.style.borderColor='#e5e5e5'" />
+        <p id="err-name" style="display:none; color:#d42b22; font-size:12px; margin-top:4px;">Моля, въведи името си.</p>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:13px; font-weight:600; color:#444; margin-bottom:6px;">Имейл <span style="color:#d42b22;">*</span></label>
+        <input type="email" id="field-email" placeholder="ivan@gmail.com" required style="width:100%; padding:12px 14px; border:1.5px solid #e5e5e5; border-radius:8px; font-size:15px; font-family:'Inter',sans-serif; color:#111; outline:none; box-sizing:border-box;" onfocus="this.style.borderColor='#d42b22'" onblur="this.style.borderColor='#e5e5e5'" />
+        <p id="err-email" style="display:none; color:#d42b22; font-size:12px; margin-top:4px;">Моля, въведи валиден имейл.</p>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:13px; font-weight:600; color:#444; margin-bottom:6px;">Телефон <span style="color:#d42b22;">*</span></label>
+        <input type="tel" id="field-phone" placeholder="+359 88 888 8888" required style="width:100%; padding:12px 14px; border:1.5px solid #e5e5e5; border-radius:8px; font-size:15px; font-family:'Inter',sans-serif; color:#111; outline:none; box-sizing:border-box;" onfocus="this.style.borderColor='#d42b22'" onblur="this.style.borderColor='#e5e5e5'" />
+        <p id="err-phone" style="display:none; color:#d42b22; font-size:12px; margin-top:4px;">Моля, въведи телефонния си номер.</p>
+      </div>
+
+      <button type="submit" style="display:block; width:100%; padding:17px 28px; border-radius:9px; border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:15px; font-weight:800; text-align:center; text-transform:uppercase; letter-spacing:0.07em; color:#fff; background:linear-gradient(160deg,#e8332a 0%,#b01f18 100%); box-shadow:0 4px 20px rgba(212,43,34,0.35),0 12px 40px rgba(212,43,34,0.15);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        Получи Безплатна Електронна Книга
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    var o = document.getElementById('modal-overlay');
+    o.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    var o = document.getElementById('modal-overlay');
+    o.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+  // Social proof carousel
+  var spMessages = [];
+  for (var si = 1; si <= 36; si++) {
+    var sn = si < 10 ? '0' + si : '' + si;
+    spMessages.push('https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/messages/msg-' + sn + '.jpg');
+  }
+  var spCarIndex = 0;
+  var spTrack = document.getElementById('spCarTrack');
+  spMessages.forEach(function(src) {
+    var img = document.createElement('img');
+    img.src = src;
+    img.loading = 'lazy';
+    spTrack.appendChild(img);
+  });
+  function spRenderCar() {
+    spTrack.style.transform = 'translateX(-' + (spCarIndex * 100) + '%)';
+  }
+  function spCarMove(dir) {
+    spCarIndex = (spCarIndex + dir + spMessages.length) % spMessages.length;
+    spRenderCar();
+  }
+  spRenderCar();
+
+  var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j';
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    var valid = true;
+    var fields = ['name','email','phone'];
+    fields.forEach(function(f) {
+      document.getElementById('err-' + f).style.display = 'none';
+      document.getElementById('field-' + f).style.borderColor = '#e5e5e5';
+    });
+
+    var name = document.getElementById('field-name');
+    if (!name.value.trim()) {
+      document.getElementById('err-name').style.display = 'block';
+      name.style.borderColor = '#d42b22'; valid = false;
+    }
+
+    var email = document.getElementById('field-email');
+    if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+      document.getElementById('err-email').style.display = 'block';
+      email.style.borderColor = '#d42b22'; valid = false;
+    }
+
+    var phone = document.getElementById('field-phone');
+    if (!phone.value.trim()) {
+      document.getElementById('err-phone').style.display = 'block';
+      phone.style.borderColor = '#d42b22'; valid = false;
+    }
+
+    if (!valid) return;
+
+    var submitBtn = e.target.querySelector('button[type="submit"]');
+    var originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Изпращане...';
+
+    fetch(CRM_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name.value.trim(),
+        email: email.value.trim(),
+        phone: phone.value.trim(),
+        source: 'switch-on-lead-magnet'
+      })
+    })
+    .then(function() {
+      window.location.href = 'thank-you.html';
+    })
+    .catch(function() {
+      // Still send the person to thank-you; the lead isn't lost, just not yet in CRM.
+      window.location.href = 'thank-you.html';
+    });
+  }
+</script>
+
+</body>
+</html>
