@@ -637,31 +637,65 @@
   });
 
   var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
+  var BIGARENA_PROXY_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/bigarena-order?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j';
+  var BOOK_PRICE = 17.90;
+  var BUMP_PRICE = 5.62;
 
-  document.getElementById('orderForm').addEventListener('submit', function (e) {
+  var orderForm = document.getElementById('orderForm');
+  var submitBtn = orderForm.querySelector('button[type="submit"]');
+
+  orderForm.addEventListener('submit', function (e) {
     e.preventDefault();
+
+    if (submitBtn.disabled) return;
 
     var name = document.getElementById('field-name').value.trim();
     var phone = document.getElementById('field-phone').value.trim();
     var email = document.getElementById('field-email').value.trim();
+    var city = document.getElementById('field-city').value.trim();
+    var address = document.getElementById('field-address').value.trim();
 
-    fetch(CRM_WEBHOOK_URL, {
+    if (!name || !phone || !email || !city || !address) {
+      alert('Моля, попълни всички полета преди да финализираш поръчката.');
+      return;
+    }
+
+    var bump = document.getElementById('bump').checked;
+    var redirectUrl = 'upsell.html' + (bump ? '?bump=1' : '');
+    var orderId = 'TG-' + Date.now();
+    var totalAmount = BOOK_PRICE + (bump ? BUMP_PRICE : 0);
+
+    submitBtn.disabled = true;
+
+    var crmDone = fetch(CRM_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: name,
         email: email,
         phone: phone,
+        bump: bump,
         source: 'product-order-tya-goni'
       })
-    })
-    .then(function() {
+    }).catch(function() {});
+
+    var bigArenaDone = fetch(BIGARENA_PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        orderId: orderId,
+        name: name,
+        phone: phone,
+        email: email,
+        city: city,
+        address: address,
+        totalAmount: totalAmount
+      })
+    }).catch(function() {});
+
+    Promise.allSettled([crmDone, bigArenaDone]).finally(function () {
       if (typeof fbq === 'function') fbq('track', 'Purchase');
-      // TODO: пренасочва към upsell страницата, когато е готова.
-    })
-    .catch(function() {
-      if (typeof fbq === 'function') fbq('track', 'Purchase');
-      // TODO: пренасочва към upsell страницата, когато е готова.
+      window.location.href = redirectUrl;
     });
   });
 </script>
