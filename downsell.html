@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Последна възможност — Готови съобщения за чат</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1008293798156260');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1008293798156260&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    .page-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    h1 {
+      font-size: clamp(23px, 3.6vw, 29px);
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      color: #111;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    h1 u { text-decoration-color: #d42b22; text-decoration-thickness: 2px; }
+
+    h2 {
+      font-size: clamp(21px, 3vw, 25px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
+      margin-top: 44px;
+      margin-bottom: 22px;
+    }
+    .accent-red { color: #d42b22; }
+    .center { text-align: center; }
+
+    p {
+      font-size: 18px;
+      line-height: 1.75;
+      color: #333;
+      margin-bottom: 22px;
+    }
+    p.tight { margin-bottom: 4px; }
+
+    strong { color: #111; font-weight: 700; }
+    em { font-style: italic; color: inherit; }
+    u { text-decoration-color: #d42b22; text-decoration-thickness: 2px; }
+
+    ul.plain, ol.plain {
+      margin: 0 0 22px 22px;
+      color: #333;
+    }
+    ul.plain li, ol.plain li {
+      font-size: 18px;
+      line-height: 1.75;
+      margin-bottom: 4px;
+    }
+
+    .divider { height: 1px; background: #eee; margin: 48px 0; }
+
+    .checklist { list-style: none; margin: 24px 0; }
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 14px;
+    }
+    .checklist li::before {
+      content: "✓";
+      flex-shrink: 0;
+      color: #d42b22;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    /* ── OFFER BOX ── */
+    .offer-box {
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 32px 28px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .offer-box .was {
+      font-size: 17px;
+      color: #999;
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .offer-box .now-label {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #d42b22;
+      margin-bottom: 6px;
+    }
+    .offer-box .now-price {
+      font-size: 46px;
+      font-weight: 900;
+      color: #111;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .offer-box .now-price span { font-size: 22px; color: #999; font-weight: 600; }
+    .offer-box .guarantee-note {
+      font-size: 14.5px;
+      color: #888;
+      margin-top: 10px;
+    }
+
+    /* ── CTA ── */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 20px 32px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(160deg, #e8332a 0%, #b01f18 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.1) inset,
+        0 4px 20px rgba(212,43,34,0.35),
+        0 12px 40px rgba(212,43,34,0.15);
+      transition: transform 0.16s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.16s ease;
+      margin: 28px 0 0;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.14) inset,
+        0 8px 28px rgba(212,43,34,0.5),
+        0 20px 56px rgba(212,43,34,0.22);
+    }
+    .cta-btn:active { transform: scale(0.99); }
+    .cta-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+    .decline-link {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      color: #999;
+      text-decoration: underline;
+      margin-top: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .decline-link:hover { color: #666; }
+
+    .author-line {
+      font-size: 15px;
+      color: #999;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 480px) {
+      .page-wrap { padding: 32px 18px 60px; }
+      p, ul.plain li, ol.plain li { font-size: 16.5px; }
+      h2 { font-size: clamp(21px, 5.5vw, 25px); margin-top: 34px; margin-bottom: 16px; }
+      .offer-box { padding: 26px 20px; }
+      .offer-box .now-price { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <h1>…Току-що отказа обучението за готови съобщения при чат с жени…</h1>
+
+  <p class="tight">…което означава, че реши да продължиш само с книгата…</p>
+  <p class="tight">…което означава, че ще трябва сам да измисляш какво да пишеш…</p>
+  <p class="tight">…сам да се чудиш как да започнеш разговор…</p>
+  <p class="tight">…сам да се опитваш да задържиш вниманието ѝ…</p>
+  <p class="tight">…сам да се справяш със сухите отговори…</p>
+  <p class="tight">…сам да гадаеш кога да предложиш среща…</p>
+  <p>…сам да се питаш защо тя спира да отговаря.</p>
+
+  <p class="tight">…Ще трябва:</p>
+  <ul class="plain">
+    <li>да пишеш „здравей, как си?“</li>
+    <li>да чакаш с часове за отговор</li>
+    <li>да се надяваш разговорът да не умре</li>
+    <li>да гледаш как други мъже стигат до срещи</li>
+    <li>да се чудиш защо при теб не става</li>
+  </ul>
+
+  <h2 class="center">…И двамата знаем, че има шанс (макар и малък) това просто да бъде отложено…</h2>
+
+  <p class="tight">…че ще си кажеш „ще го оправя после“…</p>
+  <p class="tight">…че ще гледаш видеата по-късно…</p>
+  <p class="tight">…че ще започнеш другата седмица…</p>
+  <p>…и след месец ще си на същото място.</p>
+
+  <p>…И може би не си искал да кажеш „не“, но понякога не е въпросът дали искаш… а дали можеш.</p>
+
+  <p>…и подозирам, че този път <strong>цената беше причината.</strong><br><u>Няма нищо лошо в това.</u></p>
+
+  <p>Но аз съм тук, за да не позволя пари да застанат между теб и любовния живот, който можеш да имаш.</p>
+
+  <h2 class="accent-red center">…Затова ето какво ще направя за теб…</h2>
+
+  <p class="tight">Ще махна проблема с цената.</p>
+  <p class="tight">Ще махна колебанието.</p>
+  <p>Ще махна „ще помисля“.</p>
+
+  <p><strong>И ще ти дам още една възможност.</strong><br>Вместо 67лв… можеш да получиш обучението с готовите съобщения само тук, само на тази страница, на половин цена.</p>
+
+  <div class="divider"></div>
+
+  <div class="offer-box">
+    <div class="was">Вместо 67лв</div>
+    <div class="now-label">Само тук, само сега</div>
+    <div class="now-price">18€ <span>днес</span></div>
+    <p class="guarantee-note">🛡️ 100% гаранция — не ти харесва? Пишеш. Връщаме ти парите.</p>
+  </div>
+
+  <button class="cta-btn" id="downsellBuyBtn" type="button">✓ Купи Сега</button>
+  <button class="decline-link" id="downsellDeclineBtn1" type="button">Не, благодаря! Предпочитам чатовете ми с жени да протичат по-трудно за мен</button>
+
+  <h2>…И нека ти припомня какво точно получаваш…</h2>
+
+  <p>Защото това не е просто добавка. Това е ускорител. Това е прекия път.</p>
+
+  <p><u>Това е разликата между: „ще опитам“ и „уредих среща“.</u></p>
+
+  <p class="tight">Това обучение съдържа:</p>
+  <ol class="plain">
+    <li>готови първи съобщения</li>
+    <li>последващи съобщения</li>
+    <li>отговори срещу сухи реакции</li>
+    <li>системи за ескалиране</li>
+    <li>структура кога и как да поискаш среща</li>
+    <li>логика за доминиране на разговора</li>
+    <li>сценарии за всяка ситуация</li>
+  </ol>
+
+  <p class="tight">Буквално:</p>
+  <ul class="plain">
+    <li>копираш.</li>
+    <li>поставяш.</li>
+    <li>прашаш.</li>
+  </ul>
+
+  <p>…И причината това да е толкова важно… е защото повечето мъже знаят какво искат… но в момента на истината не знаят какво да напишат.</p>
+
+  <p class="tight">И точно тогава:</p>
+  <ul class="plain">
+    <li>пишат глупости</li>
+    <li>стават скучни</li>
+    <li>звучат нуждаещи се</li>
+    <li>биват игнорирани</li>
+    <li>и се отказват.</li>
+  </ul>
+
+  <p class="tight">…Представи си вместо това…</p>
+  <ul class="checklist">
+    <li>имаш разговори, които текат</li>
+    <li>тя се смее</li>
+    <li>тя инвестира</li>
+    <li>тя пита</li>
+    <li>ти контролираш темпото</li>
+    <li>ти предлагаш среща</li>
+    <li>и тя казва „да“.</li>
+  </ul>
+
+  <p>И всичко това… вместо за 67лв… можеш да получиш за 18 евро.</p>
+  <p class="tight">По-малко от вечеря навън.</p>
+  <p class="tight">По-малко от два коктейла.</p>
+  <p>По-малко от още един месец без срещи.</p>
+
+  <h2 class="center accent-red">…И отново — ти си напълно защитен…</h2>
+
+  <p class="tight"><strong>100% гаранция.</strong></p>
+  <p class="tight">Не ти харесва? Пишеш. Връщаме ти парите.</p>
+
+  <p class="tight">И така… сега изборът е между:</p>
+  <ul class="plain">
+    <li>да импровизираш</li>
+    <li>да се надяваш</li>
+    <li>да продължиш да бъдеш игнориран</li>
+  </ul>
+
+  <p class="tight">ИЛИ…</p>
+  <ul class="plain">
+    <li>да използваш готовата система</li>
+    <li>да ускориш резултатите</li>
+    <li>да започнеш още днес.</li>
+  </ul>
+
+  <p>👉 Натисни бутона по-долу и добави обучението с готовите съобщения към поръчката си… само за 18 евро.</p>
+
+  <button class="cta-btn" id="downsellBuyBtn2" type="button">✓ Купи Сега</button>
+  <button class="decline-link" id="downsellDeclineBtn2" type="button">Не, благодаря! Предпочитам чатовете ми с жени да протичат по-трудно за мен</button>
+
+  <p>Това е последната страница, на която ще го видиш на тези условия.<br><strong>Решението е твое.</strong></p>
+
+  <p>Но ако наистина искаш различен резултат… това е най-бързият начин да го получиш.</p>
+
+  <p class="author-line">© Денис Димов</p>
+
+</div>
+
+<script>
+  var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
+
+  var incomingParams = new URLSearchParams(window.location.search);
+  var bumpParam = incomingParams.get('bump') === '1' ? '&bump=1' : '';
+
+  function submitDownsell(btn) {
+    btn.disabled = true;
+    btn.textContent = 'Моля, изчакай...';
+
+    fetch(CRM_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source: 'downsell-tya-goni-chat-messages'
+      })
+    })
+    .then(function() {
+      if (typeof fbq === 'function') fbq('track', 'Purchase');
+      window.location.href = 'thank-you-tya-goni.html?chat=1' + bumpParam;
+    })
+    .catch(function() {
+      if (typeof fbq === 'function') fbq('track', 'Purchase');
+      window.location.href = 'thank-you-tya-goni.html?chat=1' + bumpParam;
+    });
+  }
+
+  document.getElementById('downsellBuyBtn').addEventListener('click', function () {
+    submitDownsell(this);
+  });
+  document.getElementById('downsellBuyBtn2').addEventListener('click', function () {
+    submitDownsell(this);
+  });
+
+  function declineDownsell() {
+    window.location.href = 'thank-you-tya-goni.html' + (bumpParam ? '?bump=1' : '');
+  }
+  document.getElementById('downsellDeclineBtn1').addEventListener('click', declineDownsell);
+  document.getElementById('downsellDeclineBtn2').addEventListener('click', declineDownsell);
+</script>
+
+</body>
+</html>

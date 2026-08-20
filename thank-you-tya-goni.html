@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Благодаря — Методът Тя Гони</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1008293798156260');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1008293798156260&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 56px 24px 80px;
+    }
+
+    .card {
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .check-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #f0faf4;
+      border: 2px solid #d1f0dd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .check-circle svg { width: 36px; height: 36px; color: #22a855; }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.6); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(22px, 3.2vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+      color: #111;
+      margin-bottom: 14px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 44px;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
+
+    .section-label {
+      text-align: left;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #999;
+      margin: 36px 0 14px;
+      animation: fadeUp 0.5s 0.25s ease both;
+    }
+
+    .downloads {
+      list-style: none;
+      text-align: left;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+    .downloads li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      background: #fafafa;
+    }
+    .downloads .icon { font-size: 22px; flex-shrink: 0; }
+    .downloads .txt { flex: 1; min-width: 0; }
+    .downloads .txt strong { display: block; font-size: 16px; color: #111; }
+    .downloads .txt span { display: block; font-size: 13.5px; color: #888; margin-top: 2px; }
+    .downloads a.dl-btn {
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(160deg, #e8332a 0%, #b01f18 100%);
+      padding: 10px 18px;
+      border-radius: 8px;
+      transition: opacity 0.15s ease;
+    }
+    .downloads a.dl-btn:hover { opacity: 0.85; }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e8e8e8, transparent);
+      margin: 44px 0;
+      animation: fadeUp 0.5s 0.4s ease both;
+    }
+
+    .footer-note {
+      font-size: 13px;
+      color: #bbb;
+      animation: fadeUp 0.5s 0.45s ease both;
+    }
+
+    @media (max-width: 480px) {
+      .downloads li { flex-wrap: wrap; }
+      .downloads a.dl-btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="check-circle">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 18l7 7 13-13" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1>Браво, че предприе тази стъпка!</h1>
+    <p class="subtitle">Поръчката ти е приета. По-долу можеш да изтеглиш всичко, което е част от нея.</p>
+
+    <div class="section-label">Бонуси</div>
+    <ul class="downloads">
+      <li>
+        <span class="icon">🎁</span>
+        <span class="txt"><strong>Подарък #1</strong><span>Ключа да изтриеш завинаги страха от заговаряне на жени</span></span>
+        <a class="dl-btn" href="resources/tya-goni-bonus-1.pdf" download>Изтегли</a>
+      </li>
+      <li>
+        <span class="icon">🎁</span>
+        <span class="txt"><strong>Подарък #2</strong><span>Как да флиртуваш</span></span>
+        <a class="dl-btn" href="resources/tya-goni-bonus-2.pdf" download>Изтегли</a>
+      </li>
+      <li>
+        <span class="icon">🎁</span>
+        <span class="txt"><strong>Подарък #3</strong><span>Как да използваш приложенията за запознанства</span></span>
+        <a class="dl-btn" href="resources/tya-goni-bonus-3.pdf" download>Изтегли</a>
+      </li>
+      <li>
+        <span class="icon">🎁</span>
+        <span class="txt"><strong>Подарък #4</strong><span>Как да стартираш разговор с жена</span></span>
+        <a class="dl-btn" href="resources/tya-goni-bonus-4.pdf" download>Изтегли</a>
+      </li>
+    </ul>
+
+    <div class="section-label" id="bumpLabel" style="display:none;">Добавка към поръчката</div>
+    <ul class="downloads" id="bumpList" style="display:none;">
+      <li>
+        <span class="icon">📋</span>
+        <span class="txt"><strong>Първа среща — Подготовка и успех</strong><span>Чек-лист за увереност на първата среща</span></span>
+        <a class="dl-btn" href="resources/tya-goni-first-date.pdf" download>Изтегли</a>
+      </li>
+    </ul>
+
+    <div class="section-label" id="chatLabel" style="display:none;">Обучение „Готови съобщения за чат“</div>
+    <ul class="downloads" id="chatList" style="display:none;">
+      <li>
+        <span class="icon">💬</span>
+        <span class="txt"><strong>Готови съобщения за чат</strong><span>Готови шаблони за всеки ключов момент в разговора</span></span>
+        <a class="dl-btn" href="resources/tya-goni-chat-messages.pdf" download>Изтегли</a>
+      </li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <p class="footer-note">Ако имаш въпроси, свържи се с нас. Очакваме те!</p>
+
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('chat') === '1') {
+      document.getElementById('chatLabel').style.display = '';
+      document.getElementById('chatList').style.display = '';
+    }
+    if (params.get('bump') === '1') {
+      document.getElementById('bumpLabel').style.display = '';
+      document.getElementById('bumpList').style.display = '';
+    }
+  </script>
+</body>
+</html>

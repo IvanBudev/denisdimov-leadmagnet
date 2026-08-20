@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Важно съобщение — преди да продължиш</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1008293798156260');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1008293798156260&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    .page-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── WARNING BANNER ── */
+    .warning-box {
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .warning-icon { font-size: 34px; margin-bottom: 10px; }
+    .warning-box .kicker {
+      font-size: 15.5px;
+      line-height: 1.6;
+      color: #444;
+    }
+    .warning-box .kicker strong { color: #d42b22; }
+    .warning-box h1 {
+      font-size: clamp(22px, 3.6vw, 28px);
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      color: #111;
+      margin-top: 14px;
+    }
+
+    /* ── BODY TEXT ── */
+    p {
+      font-size: 18px;
+      line-height: 1.75;
+      color: #333;
+      margin-bottom: 22px;
+    }
+    p.tight { margin-bottom: 4px; }
+
+    h2 {
+      font-size: clamp(21px, 3vw, 25px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
+      margin-top: 44px;
+      margin-bottom: 22px;
+    }
+    .accent-red { color: #d42b22; }
+    .center { text-align: center; }
+
+    strong { color: #111; font-weight: 700; }
+    em { font-style: italic; color: inherit; }
+    u { text-decoration-color: #d42b22; text-decoration-thickness: 2px; }
+
+    ul.plain, ol.plain {
+      margin: 0 0 22px 22px;
+      color: #333;
+    }
+    ul.plain li, ol.plain li {
+      font-size: 18px;
+      line-height: 1.75;
+      margin-bottom: 4px;
+    }
+
+    /* ── IMAGE ── */
+    .block-img {
+      display: block;
+      width: 100%;
+      max-width: 460px;
+      border-radius: 12px;
+      margin: 8px auto 32px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: #eee; margin: 48px 0; }
+
+    /* ── WHAT'S INCLUDED ── */
+    .checklist { list-style: none; margin: 24px 0; }
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 14px;
+    }
+    .checklist li::before {
+      content: "✓";
+      flex-shrink: 0;
+      color: #d42b22;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    /* ── OFFER BOX ── */
+    .offer-box {
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 32px 28px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .offer-box .was {
+      font-size: 17px;
+      color: #999;
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .offer-box .now-label {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #d42b22;
+      margin-bottom: 6px;
+    }
+    .offer-box .now-price {
+      font-size: 46px;
+      font-weight: 900;
+      color: #111;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .offer-box .now-price span { font-size: 22px; color: #999; font-weight: 600; }
+    .offer-box .guarantee-note {
+      font-size: 14.5px;
+      color: #888;
+      margin-top: 10px;
+    }
+
+    /* ── CTA ── */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 20px 32px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(160deg, #e8332a 0%, #b01f18 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.1) inset,
+        0 4px 20px rgba(212,43,34,0.35),
+        0 12px 40px rgba(212,43,34,0.15);
+      transition: transform 0.16s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.16s ease;
+      margin: 28px 0 0;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.14) inset,
+        0 8px 28px rgba(212,43,34,0.5),
+        0 20px 56px rgba(212,43,34,0.22);
+    }
+    .cta-btn:active { transform: scale(0.99); }
+    .cta-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+    .decline-link {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      color: #999;
+      text-decoration: underline;
+      margin-top: 16px;
+    }
+    .decline-link:hover { color: #666; }
+
+    .author-line {
+      font-size: 15px;
+      color: #999;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 480px) {
+      .page-wrap { padding: 28px 18px 60px; }
+      p, ul.plain li, ol.plain li { font-size: 16.5px; }
+      h2 { font-size: clamp(21px, 5.5vw, 25px); margin-top: 34px; margin-bottom: 16px; }
+      .offer-box { padding: 26px 20px; }
+      .offer-box .now-price { font-size: 38px; }
+      .warning-box { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="warning-box">
+    <div class="warning-icon">⚠️</div>
+    <p class="kicker"><strong>ВАЖНО:</strong> Не затваряй този прозорец и не натискай бутона „Назад“.<br>Натискането на бутона „Назад“ може да доведе до двойно таксуване.</p>
+    <h1>Изчакай! Тъй като си сериозен, прочети внимателно важното съобщение по-долу</h1>
+  </div>
+
+  <p>Здравей, отново съм аз — <strong>Денис!</strong></p>
+
+  <p><em>И преди да продължиш напред, искам лично да те поздравя.</em></p>
+
+  <p>Защото ти току-що направи едно от най-умните решения, които можеш да направиш в този етап от живота си — да инвестираш в книгата <strong>„Методът тя гони“.</strong></p>
+
+  <p>Това решение има потенциала да се превърне в едно от най-важните решения, които някога ще вземеш.</p>
+
+  <p>Защото съдържа информация, която може да обърне любовния ти живот на 180 градуса. Вече имаш достъп до система, която по-малко от <strong>1% от мъжете знаят, че съществува</strong> — система, която ще ти даде нечестното предимство пред другите мъже.</p>
+
+  <p>Същата система, която ми позволи да премина от момче, което не знае какво да пише на момичетата, до <u>човек, който си урежда среща с над 80% от момичетата, на които пише.</u></p>
+
+  <p class="tight">И постигнах всичко това:</p>
+  <ul class="plain">
+    <li>без да съм модел</li>
+    <li>без да карам скъпа кола</li>
+    <li>без да съм милионер</li>
+    <li>без да гоня жените</li>
+  </ul>
+
+  <p>И най-важното — <u>без да се притеснявам кога най-накрая ще изляза на среща с жена.</u></p>
+
+  <h2 class="center accent-red">Това решение, което направи току-що, е второто най-важно решение, което си правил.</h2>
+
+  <p><strong>Най-важното решение ще бъде точно сега, тук, на тази страница.</strong></p>
+
+  <p>Защото ще ти дам възможност до нещо, което изобщо не беше в плана първоначално — шаблони за съобщения, които да ти помогнат да приложиш на практика абсолютно всичко от книгата, без да се чудиш <u>„добре де, сега какво да ѝ напиша“.</u></p>
+
+  <p>Не само да ти кажа как работи системата — което направих в книгата. Ами ще ти дам готови съобщения, стъпка по стъпка, за най-важните моменти в чата, за да можеш да действаш веднага.</p>
+
+  <p>Буквално — копираш, поставяш, пращаш. И започваш да виждаш разликата още днес.</p>
+
+  <h2 class="accent-red">И създадох обучението „Готови съобщения за чат“</h2>
+
+  <p>Ето какво съдържа то:</p>
+
+  <ul class="checklist">
+    <li>Готов пакет със съобщения за всички ключови моменти в приложенията за запознанства.</li>
+    <li>Как да започваш разговор, така че да спреш да пишеш „здравей, как си?“.</li>
+    <li>Как да поддържаш интереса с последващи съобщения, без да звучиш нуждаещ се.</li>
+    <li>Как да отговаряш на „сухи“ отговори и да връщаш разговора към живот.</li>
+    <li>Система за ескалиране, така че да излизаш с над 80% от жените, на които пишеш.</li>
+  </ul>
+
+  <p>Обучението ще ти даде абсолютно всичко, от което имаш нужда, за да стигаш до повече срещи. И това означава едно — <strong>ти реално ще можеш да го направиш.</strong></p>
+
+  <p>Независимо кой си, дори и в момента да си мислиш, че „това не е за теб“ — ти се нуждаеш от обучението за съобщения онлайн, защото това е единственият начин, по който мога да гарантирам, че ще получиш всяка полза, която тази система може да ти даде.</p>
+
+  <div class="divider"></div>
+
+  <div class="offer-box">
+    <div class="was">Реалната стойност: 300лв</div>
+    <div class="now-label">Само на тази страница</div>
+    <div class="now-price">35€ <span>/ 68,50лв</span></div>
+    <p class="guarantee-note">🛡️ 100% гаранция — не си доволен, връщаме парите ти без излишни въпроси.</p>
+  </div>
+
+  <button class="cta-btn" id="upsellBuyBtn" type="button">✓ Купи Сега</button>
+  <a class="decline-link" href="downsell.html">Не, благодаря! Предпочитам чатовете ми с жени да протичат по-трудно за мен</a>
+
+  <h2 class="center">Имаш избор.</h2>
+
+  <p>Можеш да прекараш следващите няколко години да се опитваш да го направиш сам. Можеш да не направиш нищо и да останеш точно там, където си.</p>
+
+  <p>Или можеш да инвестираш в себе си и бъдещето си и да получиш абсолютно всичко, което ти обещах — с малка част от усилията и малка част от времето.</p>
+
+  <p>Ти вече знаеш какво трябва да направиш. Знаеш, че трябва да натиснеш бутона по-долу и останалото е свършено. Ще се видим в обучението.</p>
+
+  <button class="cta-btn" id="upsellBuyBtn2" type="button">✓ Купи Сега</button>
+  <a class="decline-link" href="downsell.html">Не, благодаря! Предпочитам чатовете ми с жени да протичат по-трудно за мен</a>
+
+  <p class="author-line">© Денис Димов</p>
+
+</div>
+
+<script>
+  var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
+
+  var incomingParams = new URLSearchParams(window.location.search);
+  var bumpParam = incomingParams.get('bump') === '1' ? '&bump=1' : '';
+  document.querySelectorAll('.decline-link').forEach(function (link) {
+    link.href = 'downsell.html' + (bumpParam ? '?bump=1' : '');
+  });
+
+  function submitUpsell(btn) {
+    btn.disabled = true;
+    btn.textContent = 'Моля, изчакай...';
+
+    fetch(CRM_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source: 'upsell-tya-goni-chat-messages'
+      })
+    })
+    .then(function() {
+      if (typeof fbq === 'function') fbq('track', 'Purchase');
+      window.location.href = 'thank-you-tya-goni.html?chat=1' + bumpParam;
+    })
+    .catch(function() {
+      if (typeof fbq === 'function') fbq('track', 'Purchase');
+      window.location.href = 'thank-you-tya-goni.html?chat=1' + bumpParam;
+    });
+  }
+
+  document.getElementById('upsellBuyBtn').addEventListener('click', function () {
+    submitUpsell(this);
+  });
+  document.getElementById('upsellBuyBtn2').addEventListener('click', function () {
+    submitUpsell(this);
+  });
+</script>
+
+</body>
+</html>
