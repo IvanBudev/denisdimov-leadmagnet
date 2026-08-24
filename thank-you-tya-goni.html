@@ -31,14 +31,16 @@
       background: #ffffff;
       color: #1a1a1a;
       min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 56px 24px 80px;
     }
 
     .card {
-      max-width: 620px;
+      max-width: 560px;
       width: 100%;
       text-align: center;
-      margin: 0 auto;
     }
 
     .check-circle {
@@ -78,71 +80,49 @@
       font-size: 17px;
       color: #666;
       line-height: 1.6;
-      margin-bottom: 44px;
+      margin-bottom: 16px;
       animation: fadeUp 0.5s 0.2s ease both;
     }
 
-    .section-label {
-      text-align: left;
-      font-size: 13.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .subtitle.small {
+      font-size: 15px;
       color: #999;
-      margin: 36px 0 14px;
-      animation: fadeUp 0.5s 0.25s ease both;
+      margin-bottom: 44px;
     }
-
-    .downloads {
-      list-style: none;
-      text-align: left;
-      animation: fadeUp 0.5s 0.3s ease both;
-    }
-    .downloads li {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 16px 18px;
-      margin-bottom: 12px;
-      background: #fafafa;
-    }
-    .downloads .icon { font-size: 22px; flex-shrink: 0; }
-    .downloads .txt { flex: 1; min-width: 0; }
-    .downloads .txt strong { display: block; font-size: 16px; color: #111; }
-    .downloads .txt span { display: block; font-size: 13.5px; color: #888; margin-top: 2px; }
-    .downloads a.dl-btn {
-      flex-shrink: 0;
-      font-size: 14px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: #fff;
-      text-decoration: none;
-      background: linear-gradient(160deg, #e8332a 0%, #b01f18 100%);
-      padding: 10px 18px;
-      border-radius: 8px;
-      transition: opacity 0.15s ease;
-    }
-    .downloads a.dl-btn:hover { opacity: 0.85; }
 
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, #e8e8e8, transparent);
-      margin: 44px 0;
+      margin: 8px 0 36px;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+
+    .yt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(160deg, #e8332a 0%, #b01f18 100%);
+      padding: 16px 28px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(212,43,34,0.25);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
       animation: fadeUp 0.5s 0.4s ease both;
     }
+    .yt-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(212,43,34,0.35);
+    }
+    .yt-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
 
     .footer-note {
       font-size: 13px;
       color: #bbb;
-      animation: fadeUp 0.5s 0.45s ease both;
-    }
-
-    @media (max-width: 480px) {
-      .downloads li { flex-wrap: wrap; }
-      .downloads a.dl-btn { width: 100%; text-align: center; }
+      margin-top: 48px;
+      animation: fadeUp 0.5s 0.5s ease both;
     }
   </style>
 </head>
@@ -156,66 +136,18 @@
     </div>
 
     <h1>Браво, че предприе тази стъпка!</h1>
-    <p class="subtitle">Поръчката ти е приета. По-долу можеш да изтеглиш всичко, което е част от нея.</p>
-
-    <div class="section-label">Бонуси</div>
-    <ul class="downloads">
-      <li>
-        <span class="icon">🎁</span>
-        <span class="txt"><strong>Подарък #1</strong><span>Ключа да изтриеш завинаги страха от заговаряне на жени</span></span>
-        <a class="dl-btn" href="resources/tya-goni-bonus-1.pdf" download>Изтегли</a>
-      </li>
-      <li>
-        <span class="icon">🎁</span>
-        <span class="txt"><strong>Подарък #2</strong><span>Как да флиртуваш</span></span>
-        <a class="dl-btn" href="resources/tya-goni-bonus-2.pdf" download>Изтегли</a>
-      </li>
-      <li>
-        <span class="icon">🎁</span>
-        <span class="txt"><strong>Подарък #3</strong><span>Как да използваш приложенията за запознанства</span></span>
-        <a class="dl-btn" href="resources/tya-goni-bonus-3.pdf" download>Изтегли</a>
-      </li>
-      <li>
-        <span class="icon">🎁</span>
-        <span class="txt"><strong>Подарък #4</strong><span>Как да стартираш разговор с жена</span></span>
-        <a class="dl-btn" href="resources/tya-goni-bonus-4.pdf" download>Изтегли</a>
-      </li>
-    </ul>
-
-    <div class="section-label" id="bumpLabel" style="display:none;">Добавка към поръчката</div>
-    <ul class="downloads" id="bumpList" style="display:none;">
-      <li>
-        <span class="icon">📋</span>
-        <span class="txt"><strong>Първа среща — Подготовка и успех</strong><span>Чек-лист за увереност на първата среща</span></span>
-        <a class="dl-btn" href="resources/tya-goni-first-date.pdf" download>Изтегли</a>
-      </li>
-    </ul>
-
-    <div class="section-label" id="chatLabel" style="display:none;">Обучение „Готови съобщения за чат“</div>
-    <ul class="downloads" id="chatList" style="display:none;">
-      <li>
-        <span class="icon">💬</span>
-        <span class="txt"><strong>Готови съобщения за чат</strong><span>Готови шаблони за всеки ключов момент в разговора</span></span>
-        <a class="dl-btn" href="resources/tya-goni-chat-messages.pdf" download>Изтегли</a>
-      </li>
-    </ul>
+    <p class="subtitle">Поръчката ти е приета.</p>
+    <p class="subtitle small">Тъй като разплащането е с наложен платеж, всичко, което си поръчал, ще получиш заедно с пратката си от куриера.</p>
 
     <div class="divider"></div>
+
+    <a class="yt-btn" href="https://www.youtube.com/@denisdimovtips" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>
+      Гледай още от Денис в YouTube
+    </a>
 
     <p class="footer-note">Ако имаш въпроси, свържи се с нас. Очакваме те!</p>
 
   </div>
-
-  <script>
-    var params = new URLSearchParams(window.location.search);
-    if (params.get('chat') === '1') {
-      document.getElementById('chatLabel').style.display = '';
-      document.getElementById('chatList').style.display = '';
-    }
-    if (params.get('bump') === '1') {
-      document.getElementById('bumpLabel').style.display = '';
-      document.getElementById('bumpList').style.display = '';
-    }
-  </script>
 </body>
 </html>

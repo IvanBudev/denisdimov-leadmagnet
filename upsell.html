@@ -314,12 +314,6 @@
 <script>
   var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
 
-  var incomingParams = new URLSearchParams(window.location.search);
-  var bumpParam = incomingParams.get('bump') === '1' ? '&bump=1' : '';
-  document.querySelectorAll('.decline-link').forEach(function (link) {
-    link.href = 'downsell.html' + (bumpParam ? '?bump=1' : '');
-  });
-
   function submitUpsell(btn) {
     btn.disabled = true;
     btn.textContent = 'Моля, изчакай...';
@@ -333,11 +327,11 @@
     })
     .then(function() {
       if (typeof fbq === 'function') fbq('track', 'Purchase');
-      window.location.href = 'thank-you-tya-goni.html?chat=1' + bumpParam;
+      window.location.href = 'thank-you-tya-goni.html';
     })
     .catch(function() {
       if (typeof fbq === 'function') fbq('track', 'Purchase');
-      window.location.href = 'thank-you-tya-goni.html?chat=1' + bumpParam;
+      window.location.href = 'thank-you-tya-goni.html';
     });
   }
 
