@@ -314,6 +314,16 @@
 <script>
   var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
 
+  var incomingParams = new URLSearchParams(window.location.search);
+  var contactName = incomingParams.get('name') || '';
+  var contactPhone = incomingParams.get('phone') || '';
+  var contactEmail = incomingParams.get('email') || '';
+  var contactQuery = 'name=' + encodeURIComponent(contactName) + '&phone=' + encodeURIComponent(contactPhone) + '&email=' + encodeURIComponent(contactEmail);
+
+  document.querySelectorAll('.decline-link').forEach(function (link) {
+    link.href = 'downsell.html?' + contactQuery + (incomingParams.get('bump') === '1' ? '&bump=1' : '');
+  });
+
   function submitUpsell(btn) {
     btn.disabled = true;
     btn.textContent = 'Моля, изчакай...';
@@ -322,6 +332,9 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        name: contactName,
+        phone: contactPhone,
+        email: contactEmail,
         source: 'upsell-tya-goni-chat-messages'
       })
     })

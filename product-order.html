@@ -661,7 +661,8 @@
     }
 
     var bump = document.getElementById('bump').checked;
-    var redirectUrl = 'upsell.html' + (bump ? '?bump=1' : '');
+    var contactParams = 'name=' + encodeURIComponent(name) + '&phone=' + encodeURIComponent(phone) + '&email=' + encodeURIComponent(email);
+    var redirectUrl = 'upsell.html?' + contactParams + (bump ? '&bump=1' : '');
     var orderId = 'TG-' + Date.now();
     var totalAmount = BOOK_PRICE + (bump ? BUMP_PRICE : 0);
 
