@@ -296,6 +296,7 @@
         0 20px 56px rgba(212,43,34,0.22);
     }
     .cta-btn:active { transform: scale(0.99); }
+    .cta-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
 
     .cta-wrap { max-width: 820px; margin: 0 auto; }
     .cta-wrap .guarantee-line {
@@ -644,6 +645,21 @@
   var orderForm = document.getElementById('orderForm');
   var submitBtn = orderForm.querySelector('button[type="submit"]');
 
+  // Guards against a duplicate BigArena order from the same visitor:
+  // submitBtn.disabled alone only stops a second click on the same page
+  // load. If the checkout call is slow (mobile network, API cold start) and
+  // the button gives no visible feedback, an impatient buyer may reload the
+  // page or tap again after navigation - a fresh page load resets all JS
+  // state, so a plain in-memory flag would not catch that. sessionStorage
+  // survives a reload within the same tab/session, so a second submit
+  // attempt is redirected straight to the already-reached step instead of
+  // firing a second BigArena order.
+  var ALREADY_SUBMITTED_KEY = 'tyaGoniOrderSubmitted';
+  var priorRedirect = sessionStorage.getItem(ALREADY_SUBMITTED_KEY);
+  if (priorRedirect) {
+    window.location.href = priorRedirect;
+  }
+
   orderForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -667,6 +683,8 @@
     var totalAmount = BOOK_PRICE + (bump ? BUMP_PRICE : 0);
 
     submitBtn.disabled = true;
+    submitBtn.textContent = 'Моля, изчакай...';
+    sessionStorage.setItem(ALREADY_SUBMITTED_KEY, redirectUrl);
 
     var crmDone = fetch(CRM_WEBHOOK_URL, {
       method: 'POST',
