@@ -474,7 +474,7 @@
       <div class="col">
         <div class="checkout-box">
           <h2>Завърши поръчката</h2>
-          <p class="field-hint">Наложен платеж. Доставка до офис на Еконт.</p>
+          <p class="field-hint">Наложен платеж 22.25€ (17.90€ книга + 4.35€ доставка). Доставка до офис на Еконт.</p>
 
           <form id="orderForm">
             <div class="field-group">
@@ -516,6 +516,10 @@
               <span class="item-price"><span class="paid">17.90€</span></span>
             </li>
             <li>
+              <span class="item-left"><span class="icon">🚚</span><strong>Доставка</strong></span>
+              <span class="item-price"><span class="paid">4.35€</span></span>
+            </li>
+            <li>
               <span class="item-left"><span class="icon">🎁</span><strong>ПОДАРЪК #1</strong> "Ключа да изтриеш завинаги страха от заговаряне на жени"</span>
               <span class="item-price"><span class="old">50,62€</span><span class="free">БЕЗПЛАТНО</span></span>
             </li>
@@ -545,7 +549,7 @@
             <span class="label">Обща стойност над 190€</span>
             <span>
               <span class="old-total">190€+</span>
-              <span class="final-price">17.90€</span>
+              <span class="final-price">22.25€</span>
             </span>
           </div>
 
@@ -617,7 +621,7 @@
 </div>
 
 <div class="sticky-bar" id="stickyBar">
-  <a class="cta-btn" href="#checkout">Купи Сега — 17.90€</a>
+  <a class="cta-btn" href="#checkout">Купи Сега — 22.25€</a>
 </div>
 
 <script>
@@ -639,6 +643,7 @@
   var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
   var BIGARENA_PROXY_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/bigarena-order?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j';
   var BOOK_PRICE = 17.90;
+  var SHIPPING_FEE = 4.35;
   var BUMP_PRICE = 5.62;
 
   var orderForm = document.getElementById('orderForm');
@@ -679,7 +684,7 @@
     var contactParams = 'name=' + encodeURIComponent(name) + '&phone=' + encodeURIComponent(phone) + '&email=' + encodeURIComponent(email);
     var redirectUrl = 'upsell.html?' + contactParams + (bump ? '&bump=1' : '');
     var orderId = 'TG-' + Date.now();
-    var totalAmount = BOOK_PRICE + (bump ? BUMP_PRICE : 0);
+    var totalAmount = BOOK_PRICE + SHIPPING_FEE + (bump ? BUMP_PRICE : 0);
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Моля, изчакай...';
