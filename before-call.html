@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Преди да говорим — Денис Димов</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #121212;
+    --bg3: #161616;
+    --accent: #9b3d3d;
+    --accent-hover: #7e3131;
+    --steel: #7d8a9e;
+    --steel-light: #d8dce3;
+    --text: #f2f2f2;
+    --text2: #c9c9c9;
+    --muted: #888888;
+    --border: #232323;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7;
+  }
+  .noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .glow {
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(125,138,158,0.06) 0%, rgba(10,10,10,0) 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrap { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  .wrap.wide { max-width: 1100px; }
+  .wrap.narrow { max-width: 720px; }
+
+  /* SECTION LABEL */
+  .sec-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .sec-label .num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .sec-label .tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 70px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero img.avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--steel);
+    margin-bottom: 24px;
+  }
+  .hero-text { max-width: 620px; }
+  .hero .eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4.5vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .hero h1 span { color: var(--steel-light); }
+  .hero .sub { margin-top: 16px; color: var(--text2); font-size: 15px; }
+  .confirm-notice {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    text-align: left;
+    background: rgba(155,61,61,0.08);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    max-width: 560px;
+  }
+  .confirm-notice .warn-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+  .confirm-notice p { margin: 0; font-size: 14px; color: var(--text2); }
+  .confirm-notice strong { color: var(--text); }
+  .hero .next-step {
+    margin-top: 18px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  @media (min-width: 900px) {
+    .hero img.avatar { width: 160px; height: 160px; margin-bottom: 32px; }
+  }
+
+  section.block { padding: 10px 20px 74px; }
+  section.block h2 {
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin: 0 0 8px;
+  }
+  section.block p.desc {
+    text-align: center;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 40px;
+  }
+
+  /* TEXT-BLOCK BODY COPY (e.g. breakdown section) */
+  .text-block-body {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .text-block-body p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text2);
+    margin: 0 0 18px;
+  }
+  .text-block-body ul {
+    margin: 0 0 18px;
+    padding-left: 22px;
+  }
+  .text-block-body li {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+
+  /* VIDEO-ANSWER CARD — wraps each standalone Q&A video section (welcome/method/difference-video) */
+  .video-answer {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 24px 32px;
+    box-shadow: 0 24px 60px -32px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.02) inset;
+  }
+  .video-answer.va-wide { max-width: 100%; }
+  .video-answer .va-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .video-answer .va-label .va-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+  .video-answer h2 { margin: 0 0 22px; }
+
+  /* Connector between stacked video-answer cards */
+  .va-connector {
+    width: 1px;
+    height: 36px;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, var(--border), transparent);
+  }
+
+  /* WELCOME VIDEO */
+  .welcome-video {
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--border);
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .welcome-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+  }
+
+  /* PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .pillar {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 26px 22px;
+    text-align: center;
+  }
+  .pillar .icon { font-size: 26px; margin-bottom: 12px; }
+  .pillar h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px; }
+  .pillar p { font-size: 14px; color: var(--text2); margin: 0; }
+  @media (min-width: 800px) {
+    .pillars { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* TEXT TESTIMONIAL CAROUSEL */
+  .tt-wrap { position: relative; max-width: 520px; margin: 0 auto; padding: 0 50px; }
+  .tt-viewport { overflow: hidden; transition: height 0.35s ease; }
+  .tt-track { display: flex; align-items: flex-start; transition: transform 0.35s ease; }
+  .tt-slide { min-width: 100%; width: 100%; display: flex; justify-content: center; }
+  .tt-slide img { max-width: 100%; width: auto; height: auto; object-fit: contain; background: transparent; display: block; border-radius: 14px; margin: 0 auto; }
+  .tt-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; max-width: 320px; margin-left: auto; margin-right: auto; }
+  .tt-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+  .tt-dot.active { background: var(--steel); transform: scale(1.3); }
+
+  /* CAROUSEL (video-messages, shared arrow style) */
+  .car-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 22px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+  .car-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .car-prev { left: 0; }
+  .car-next { right: 0; }
+
+  /* VIDEO GRID (testimonials) */
+  .video-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .video-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .video-item video { width: 100%; display: block; max-height: 520px; background: #000; }
+  @media (min-width: 900px) {
+    .video-grid { grid-template-columns: 1fr 1fr; }
+    .video-item video { max-height: 340px; }
+  }
+
+  /* STORY SECTION */
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+  }
+  .story img.portrait {
+    width: 220px;
+    height: 220px;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .story-text { max-width: 620px; }
+  .story-text p { color: var(--text2); font-size: 15px; }
+  .achievements { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; }
+  .achievements li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--text2);
+  }
+  .achievements li .mark { color: var(--steel); font-weight: 700; flex-shrink: 0; }
+  @media (min-width: 860px) {
+    .story { flex-direction: row; align-items: flex-start; }
+  }
+
+  /* PROGRAM FEATURES */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .feature {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .feature .icon { font-size: 22px; flex-shrink: 0; }
+  .feature h3 { font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+  .feature p { font-size: 14px; color: var(--text2); margin: 0; }
+  @media (min-width: 800px) {
+    .features { grid-template-columns: 1fr 1fr; }
+  }
+
+  .guarantee-box {
+    margin-top: 22px;
+    background: linear-gradient(135deg, rgba(155,61,61,0.10), rgba(125,138,158,0.05));
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 22px 24px;
+    text-align: center;
+  }
+  .guarantee-box .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--steel-light);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .guarantee-box p { margin: 0; font-size: 14px; color: var(--text2); }
+
+  /* DIFFERENCE LIST */
+  .diff-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .diff-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .diff-item .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .diff-item h3 { font-size: 15px; font-weight: 700; margin: 0 0 4px; }
+  .diff-item p { font-size: 14px; color: var(--text2); margin: 0; }
+  @media (min-width: 800px) {
+    .diff-list { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* YOUTUBE CTA */
+  .youtube-nudge-wrap { text-align: center; margin-top: 44px; }
+  .youtube-nudge-text {
+    font-size: 17px;
+    color: var(--text2);
+    margin: 0 0 18px;
+  }
+  .btn-youtube {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FF0000;
+    color: #fff;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 16px 40px -18px rgba(255,0,0,0.55);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-youtube:hover { transform: translateY(-2px); box-shadow: 0 20px 48px -16px rgba(255,0,0,0.7); }
+  .btn-youtube:active { transform: translateY(0); }
+  .btn-youtube svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+  /* VIDEO FAQ GRID */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  @media (min-width: 760px) {
+    .faq-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .faq-card {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: linear-gradient(160deg, #1c1414 0%, #0e0b0b 60%, #0a0a0a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .faq-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .faq-card .faq-question {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #f0e6e6;
+    max-width: 320px;
+  }
+  .faq-card .faq-question::before { content: '\201C'; }
+  .faq-card .faq-question::after { content: '\201D'; }
+  .faq-card .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(155,61,61,0.55);
+    border: 1px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    backdrop-filter: blur(2px);
+  }
+  .faq-card .play-btn::after {
+    content: '';
+    border-style: solid;
+    border-width: 9px 0 9px 15px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 4px;
+  }
+  .faq-card .faq-question { opacity: 0.92; }
+  .faq-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(155,61,61,0.18), transparent 65%);
+  }
+
+  /* MODAL (shared: cert + faq video) */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+  }
+  .modal-box.video-modal { max-width: 720px; padding: 20px; }
+  .modal-box h3 { text-align: center; margin: 0 0 24px; font-size: 22px; font-weight: 800; }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 2;
+  }
+  .modal-close:hover { color: var(--text); }
+  .video-modal-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; }
+  .video-modal-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .video-modal .video-modal-question { text-align: center; color: var(--text2); font-size: 14px; margin-top: 14px; }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px 60px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<div class="glow"></div>
+
+<!-- ============ 00 — HERO ============ -->
+<div class="hero wrap">
+  <img class="avatar" src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/photo/denis-photo.jpg" alt="Денис Димов">
+  <div class="hero-text">
+    <div class="eyebrow">Преди да поговорим</div>
+    <h1>Академия за <span>мъжка увереност на Денис Димов</span></h1>
+    <p class="sub">Предстои ни важен разговор, изгледай видеата отдолу, за да бъдеш максимално информиран за нас.</p>
+    <div class="confirm-notice">
+      <span class="warn-icon">⚠️</span>
+      <p><strong>Човекът от екипа, с когото ще говориш, лично ще ти пише</strong>, за да потвърди часа на разговора.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 01 — ЗАЩО ИЗПРАЩАМЕ ТОВА ============ -->
+<section class="block wrap" id="why">
+  <div class="sec-label"><span class="num">01</span><span class="tag">Въведение</span></div>
+  <h2>Защо ти изпращаме това?</h2>
+  <p class="desc">Преди разговора с нас, искаме да дойдеш подготвен — да знаеш точно с кого говориш и какво да очакваш.</p>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="icon">🎯</div>
+      <h3>Ще разбереш</h3>
+      <p>Кой е Денис, как работи Академията за мъжка увереност и защо подходът му е различен.</p>
+    </div>
+    <div class="pillar">
+      <div class="icon">❓</div>
+      <h3>Ще отговорим</h3>
+      <p>На най-честите въпроси предварително — директно от Денис на видео, не с изписан текст.</p>
+    </div>
+    <div class="pillar">
+      <div class="icon">✅</div>
+      <h3>Ще дойдеш подготвен</h3>
+      <p>Ще дойдеш подготвен, за да можем в разговора да говорим директно за твоята ситуация, без да си губим времето.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block wrap narrow" id="welcome">
+  <div class="video-answer">
+    <div class="va-label"><span class="va-tag">Кой е Денис</span></div>
+    <h2>Кой е Денис Димов?</h2>
+    <div class="welcome-video">
+      <iframe src="https://www.youtube.com/embed/eiQ4JZZm0bg" title="Кой е Денис Димов?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<div class="wrap narrow"><div class="va-connector"></div></div>
+
+<section class="block wrap narrow" id="method">
+  <div class="video-answer">
+    <div class="va-label"><span class="va-tag">Методът</span></div>
+    <h2>Как точно работи методът, който стои зад Академия за мъжка увереност?</h2>
+    <div class="welcome-video">
+      <iframe src="https://www.youtube.com/embed/_BWddlil0j8" title="Как точно работи методът" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<div class="wrap narrow"><div class="va-connector"></div></div>
+
+<section class="block wrap narrow" id="difference-video">
+  <div class="video-answer">
+    <div class="va-label"><span class="va-tag">Разликата</span></div>
+    <h2>Каква е разликата между метода за привличане и всички съвети, които виждаш в интернет?</h2>
+    <div class="welcome-video">
+      <iframe src="https://www.youtube.com/embed/f1CM8ibQQIo" title="Разликата между метода и съветите онлайн" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 — РАБОТИ ЛИ МЕТОДЪТ ЗА ПРИВЛИЧАНЕ ============ -->
+<section class="block wrap narrow" id="breakdown">
+  <div class="video-answer">
+    <div class="va-label"><span class="va-tag">Числата</span></div>
+    <h2>Работи ли методът за привличане?</h2>
+    <p class="desc">Ако се питаш дали методът на привличане работи на практика, най-лесният начин да разбереш е като видиш хората, които са се докоснали до него.</p>
+    <div class="text-block-body">
+      <p>Над 2 хиляди души са се докоснали, пряко или косвено до метода за привличане. Тук говорим за:</p>
+      <ul>
+        <li>уебинари</li>
+        <li>безплатни ресурси на всякакви теми</li>
+        <li>2 книги</li>
+      </ul>
+      <p>А ако включим и хората, гледали YouTube канала на Денис Димов, това число ще бъде в пъти по-голямо. Всеки от тези хора е стигнал до метода по различен начин — някой е попаднал на видео случайно, друг е чел книга цяла нощ, трети е гледал уебинар след поредна разочароваща среща.</p>
+      <p>Но теб не те интересува, колко хора са чули за метода, теб те интересува на колко души е помогнал. Защото между "чул съм за нещо" и "приложих го и работи" има огромна разлика — и точно тази разлика е важната.</p>
+      <p>Истината е, че те са стотици, и точно под този текст, може да видиш само "малка" част от тях, за да се увериш сам. Не подбрани изкуствено най-добрите примери, а хора, които са минали през същите съмнения, които вероятно имаш и ти в момента — дали ще проработи точно за тях, дали не е прекалено късно, дали ситуацията им не е "прекалено специфична".</p>
+      <p>Затова не те карам просто да ми повярваш на думата. Виж сам какво казват хората по-долу — техните думи, не моите.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 — НАПРАВИ СИ СОБСТВЕНО ПРОУЧВАНЕ ============ -->
+<section class="block wrap" id="research">
+  <div class="video-answer va-wide">
+    <div class="va-label"><span class="va-tag">Резултати</span></div>
+    <h2>Ето какво казват хора, за Денис.</h2>
+
+    <div class="tt-wrap">
+      <button class="car-btn car-prev" onclick="ttMove(-1)">&#8249;</button>
+      <div class="tt-viewport">
+        <div class="tt-track" id="ttTrack"></div>
+      </div>
+      <button class="car-btn car-next" onclick="ttMove(1)">&#8250;</button>
+    </div>
+    <div class="tt-dots" id="ttDots"></div>
+
+    <div class="video-grid">
+      <div class="video-item">
+        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.jpg">
+          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-item">
+        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.jpg">
+          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-item">
+        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-3.jpg">
+          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-3.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-item">
+        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-4.jpg">
+          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-4.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 — КАК РАБОТИ АКАДЕМИЯТА ЗА МЪЖКА УВЕРЕНОСТ ============ -->
+<section class="block wrap" id="program">
+  <div class="video-answer">
+    <div class="va-label"><span class="va-tag">Академия</span></div>
+    <h2>Как работи Академията за мъжка увереност?</h2>
+    <div class="features">
+      <div class="feature">
+        <div class="icon">💬</div>
+        <div><h3>1:1 менторство в чат</h3><p>Директен достъп до Денис. Работи по твоята конкретна ситуация, не с общи съвети.</p></div>
+      </div>
+      <div class="feature">
+        <div class="icon">🗓️</div>
+        <div><h3>6-месечна програма</h3><p>Достатъчно време да промениш реално мисленето и поведението си, не бърз "трик".</p></div>
+      </div>
+      <div class="feature">
+        <div class="icon">🎯</div>
+        <div><h3>Индивидуален подход</h3><p>Всеки мъж има различен проблем и ситуация — Денис влиза дълбоко в твоята конкретна история.</p></div>
+      </div>
+      <div class="feature">
+        <div class="icon">🤝</div>
+        <div><h3>Ментор, не "гуру"</h3><p>Денис е минал по същия път — говори като приятел, минал през същите проблеми, не като лектор.</p></div>
+      </div>
+    </div>
+    <div class="guarantee-box">
+      <div class="label">🛡️ Гаранция</div>
+      <p>Ако не постигнеш резултат в рамките на 6-те месеца, Денис продължава да работи с теб напълно безплатно, докато не постигнеш резултат.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 — КАКВО ПРАВИ ПОДХОДА РАЗЛИЧЕН ============ -->
+<section class="block wrap" id="difference">
+  <div class="video-answer">
+    <div class="va-label"><span class="va-tag">Разлика</span></div>
+    <h2>Какво прави подхода различен?</h2>
+    <div class="diff-list">
+      <div class="diff-item">
+        <div class="icon">🧭</div>
+        <div><h3>Не "пикъп артист" стил</h3><p>Няма шаблонни трикове и реплики. Работата е върху теб самия — не върху манипулация на жени.</p></div>
+      </div>
+      <div class="diff-item">
+        <div class="icon">🔍</div>
+        <div><h3>Индивидуален, не масов</h3><p>Всеки клиент влиза с различен проблем — бивша, самочувствие, липса на опит. Денис адаптира подхода към теб.</p></div>
+      </div>
+      <div class="diff-item">
+        <div class="icon">🎬</div>
+        <div><h3>Автентичност</h3><p>Личната история на Денис е основата — не теория от книги, а път, по който самият той е минал.</p></div>
+      </div>
+      <div class="diff-item">
+        <div class="icon">🧬</div>
+        <div><h3>Еволюционна рамка</h3><p>Разбиране на реалните механизми зад привличането — не догадки и общи клишета.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 — ЧЕСТО ЗАДАВАНИ ВЪПРОСИ (VIDEO GRID) ============ -->
+<section class="block wrap wide" id="faq">
+  <div class="sec-label"><span class="num">06</span><span class="tag">ЧЗВ</span></div>
+  <h2>Често задавани въпроси</h2>
+  <p class="desc">Денис отговаря лично — кликни въпрос, за да чуеш отговора.</p>
+  <div class="faq-grid" id="faqGrid"></div>
+</section>
+
+<!-- ============ 07 — FOOTER CTA ============ -->
+<section class="block wrap" id="certs">
+  <div class="youtube-nudge-wrap">
+    <p class="youtube-nudge-text">Ако искаш да разбереш още за Денис, виж неговия YouTube канал.</p>
+    <a class="btn-youtube" href="https://www.youtube.com/@denisdimovtips" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8ZM9.6 15.5V8.5L15.8 12Z"/></svg>
+      Виж YouTube канала на Денис
+    </a>
+  </div>
+</section>
+
+<footer>© Денис Димов</footer>
+
+<!-- FAQ VIDEO MODAL -->
+<div class="modal-overlay" id="faqModal">
+  <div class="modal-box video-modal">
+    <button class="modal-close" onclick="closeFaqModal()">&times;</button>
+    <div class="video-modal-frame">
+      <iframe id="faqModalVideo" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <div class="video-modal-question" id="faqModalQuestion"></div>
+  </div>
+</div>
+
+<script>
+  var GH_BASE = "https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/";
+
+  // Text testimonials carousel (messages)
+  var ttMessages = [];
+  for (var i = 1; i <= 36; i++) {
+    var n = i < 10 ? "0" + i : "" + i;
+    ttMessages.push(GH_BASE + "messages/msg-" + n + ".jpg");
+  }
+  var ttIndex = 0;
+  var ttTrack = document.getElementById("ttTrack");
+  var ttDotsWrap = document.getElementById("ttDots");
+  var ttViewport = document.querySelector(".tt-viewport");
+  var ttSlides = [];
+  function ttSyncHeight() {
+    var activeImg = ttSlides[ttIndex] && ttSlides[ttIndex].querySelector("img");
+    if (activeImg && activeImg.complete && activeImg.naturalHeight) {
+      ttViewport.style.height = activeImg.offsetHeight + "px";
+    }
+  }
+  ttMessages.forEach(function(src, idx) {
+    var slide = document.createElement("div");
+    slide.className = "tt-slide";
+
+    var img = document.createElement("img");
+    img.src = src;
+    img.loading = "lazy";
+    img.onload = function() { if (idx === ttIndex) ttSyncHeight(); };
+    slide.appendChild(img);
+    ttTrack.appendChild(slide);
+    ttSlides.push(slide);
+
+    var dot = document.createElement("div");
+    dot.className = "tt-dot" + (idx === 0 ? " active" : "");
+    dot.onclick = (function(target) { return function() { ttGoTo(target); }; })(idx);
+    ttDotsWrap.appendChild(dot);
+  });
+  window.addEventListener("resize", ttSyncHeight);
+  function renderTt() {
+    ttTrack.style.transform = "translateX(-" + (ttIndex * 100) + "%)";
+    ttSyncHeight();
+    var dots = ttDotsWrap.children;
+    for (var d = 0; d < dots.length; d++) {
+      dots[d].classList.toggle("active", d === ttIndex);
+    }
+  }
+  function ttMove(dir) {
+    ttIndex = (ttIndex + dir + ttMessages.length) % ttMessages.length;
+    renderTt();
+  }
+  function ttGoTo(idx) {
+    ttIndex = idx;
+    renderTt();
+  }
+  renderTt();
+
+  // Video message carousel (legacy id kept for compatibility, reused by messages section id="messages" if referenced elsewhere)
+  var carIndex = 0;
+
+  // FAQ video grid
+  var faqItems = [
+    { q: "Работи ли методът, ако съм нисък / нямам пари / не изглеждам добре?", yt: "HdPRYuTpVNM" },
+    { q: "Ще проработи ли, ако съм срамежлив и притеснителен човек?", yt: "OC4g3ngbqWE" },
+    { q: "Скоро приключих дълга връзка/разведох се — приложим ли е методът и в моята ситуация?", yt: "kSmEuNaheBI" },
+    { q: "Има ли възрастова граница — твърде млад ли съм на 20 или твърде стар ли съм на 45?", yt: "3j-J46flnL4" },
+    { q: "Опитвал съм книги, приложения, онлайн съвети и нищо не проработи — защо тук да бъде различно?", yt: "9Q-NLnLGShk" },
+    { q: "Търся истинска връзка, не просто да свалям жени за секс — методът за това ли е, или е само за краткосрочно?", yt: "RtDYJiG9bPs" },
+    { q: "Ще проработи ли за мен, ако ситуацията ми е специфична?", yt: "KUUAnjqslEI" },
+    { q: "Какво по-точно означава \"мъжка рамка\"?", yt: "UU1Lyq4uEQU" },
+    { q: "За кого е / не е Академията за мъжка увереност?", yt: "RJbqgi_3elI" },
+    { q: "Зает съм с работа/бизнес и имам малко свободно време — може ли да ми помогне въпреки това?", yt: "v6fD_nARob4" },
+    { q: "Ще трябва ли да жертвам нещо, за да подобря взаимоотношенията с жените?", yt: "rk_-3GDeYQQ" }
+  ];
+  var faqGrid = document.getElementById("faqGrid");
+  faqItems.forEach(function(item, idx) {
+    var card = document.createElement("div");
+    card.className = "faq-card";
+    card.innerHTML =
+      '<div class="faq-question">' + item.q + '</div>' +
+      '<div class="play-btn"></div>';
+    card.onclick = (function(it) { return function() { openFaqModal(it); }; })(item);
+    faqGrid.appendChild(card);
+  });
+
+  function openFaqModal(item) {
+    var iframe = document.getElementById("faqModalVideo");
+    iframe.src = "https://www.youtube.com/embed/" + item.yt + "?autoplay=1";
+    document.getElementById("faqModalQuestion").textContent = item.q;
+    document.getElementById("faqModal").classList.add("open");
+  }
+  function closeFaqModal() {
+    var iframe = document.getElementById("faqModalVideo");
+    iframe.src = "";
+    document.getElementById("faqModal").classList.remove("open");
+  }
+  document.getElementById("faqModal").addEventListener("click", function(e) {
+    if (e.target === this) closeFaqModal();
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+      closeFaqModal();
+    }
+  });
+</script>
+
+</body>
+</html>
