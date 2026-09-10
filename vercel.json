@@ -2,6 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": false,
   "rewrites": [
+    { "source": "/before-call", "destination": "/before-call.html" },
+    { "source": "/before-call/", "destination": "/before-call.html" },
     { "source": "/webinar", "destination": "/webinar/index.html" },
     { "source": "/webinar/", "destination": "/webinar/index.html" }
   ]
