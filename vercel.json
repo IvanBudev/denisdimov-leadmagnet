@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/webinar", "destination": "/webinar/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/webinar/", "destination": "/webinar/index.html" }
+  ]
+}
