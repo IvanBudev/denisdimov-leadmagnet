@@ -426,13 +426,14 @@ u.accent-gold {
 }
 .fit-yes li::before { content: "✓"; color: var(--gold); font-weight: 800; }
 
+.fit-no { border-color: rgba(178,58,50,0.4); }
 .fit-no .fit-badge {
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid var(--border-2);
-  color: var(--muted);
+  background: rgba(178,58,50,0.14);
+  border: 1.5px solid rgba(178,58,50,0.5);
+  color: #c14a40;
 }
 .fit-no li { color: var(--muted); }
-.fit-no li::before { content: "✕"; color: var(--muted); font-weight: 700; }
+.fit-no li::before { content: "✕"; color: #c14a40; font-weight: 700; }
 
 @media (min-width: 720px) {
   .fit-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
