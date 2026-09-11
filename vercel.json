@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": false,
+  "redirects": [
+    { "source": "/qualify", "destination": "/qualify/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/advertorial", "destination": "/advertorial.html" },
     { "source": "/advertorial/", "destination": "/advertorial.html" },
@@ -18,7 +21,6 @@
     { "source": "/thank-you-tya-goni/", "destination": "/thank-you-tya-goni.html" },
     { "source": "/webinar", "destination": "/webinar/index.html" },
     { "source": "/webinar/", "destination": "/webinar/index.html" },
-    { "source": "/qualify", "destination": "https://forma-khaki-nine.vercel.app/" },
     { "source": "/qualify/", "destination": "https://forma-khaki-nine.vercel.app/" },
     { "source": "/qualify/:path*", "destination": "https://forma-khaki-nine.vercel.app/:path*" }
   ]
