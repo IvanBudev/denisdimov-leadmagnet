@@ -2,8 +2,20 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": false,
   "rewrites": [
+    { "source": "/advertorial", "destination": "/advertorial.html" },
+    { "source": "/advertorial/", "destination": "/advertorial.html" },
     { "source": "/before-call", "destination": "/before-call.html" },
     { "source": "/before-call/", "destination": "/before-call.html" },
+    { "source": "/downsell", "destination": "/downsell.html" },
+    { "source": "/downsell/", "destination": "/downsell.html" },
+    { "source": "/product-order", "destination": "/product-order.html" },
+    { "source": "/product-order/", "destination": "/product-order.html" },
+    { "source": "/upsell", "destination": "/upsell.html" },
+    { "source": "/upsell/", "destination": "/upsell.html" },
+    { "source": "/thank-you", "destination": "/thank-you.html" },
+    { "source": "/thank-you/", "destination": "/thank-you.html" },
+    { "source": "/thank-you-tya-goni", "destination": "/thank-you-tya-goni.html" },
+    { "source": "/thank-you-tya-goni/", "destination": "/thank-you-tya-goni.html" },
     { "source": "/webinar", "destination": "/webinar/index.html" },
     { "source": "/webinar/", "destination": "/webinar/index.html" }
   ]
