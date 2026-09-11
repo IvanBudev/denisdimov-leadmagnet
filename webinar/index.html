@@ -347,10 +347,10 @@
       </label>
 
       <div class="consent-row">
-        <label class="consent-label">
-          <input type="checkbox" id="field-consent" name="consent" required />
-          <span>Съгласен съм с <a href="/webinar/privacy.html" target="_blank" rel="noopener">Политика за поверителност</a> <span class="req">*</span></span>
-        </label>
+        <div class="consent-label" id="consent-label-wrap">
+          <input type="checkbox" id="field-consent" name="consent" required aria-label="Съгласен съм с Политика за поверителност" />
+          <span class="consent-text">Съгласен съм с <a href="/webinar/privacy.html" target="_blank" rel="noopener">Политика за поверителност</a> <span class="req">*</span></span>
+        </div>
         <span class="form-error" id="err-consent" hidden>Трябва да се съгласиш, за да продължиш.</span>
       </div>
 
