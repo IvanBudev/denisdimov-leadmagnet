@@ -733,33 +733,43 @@ u.accent-gold {
 .consent-row { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
 #register-form label.consent-label {
   flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 12px;
   font-size: 13px;
   font-weight: 500;
   line-height: 1.5;
   color: var(--text-2);
   cursor: pointer;
+  /* По-голяма реална зона за тап — не само визуалното квадратче */
+  padding: 6px 2px;
+  margin: -6px -2px;
 }
 .consent-label input {
   appearance: none;
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
+  margin-top: 1px;
   border: 1px solid var(--border-2);
-  border-radius: 5px;
+  border-radius: 6px;
   background: #191a13;
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 .consent-label input:checked {
-  background: var(--gold-cta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6.2 4.6 9 10 3' stroke='%23fff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+  background: var(--gold-cta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6.2 4.6 9 10 3' stroke='%23fff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 13px no-repeat;
   border-color: var(--gold-cta);
 }
 .consent-label input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .consent-label input.invalid { border-color: #d4342a; }
-.consent-label a { color: var(--gold); text-decoration: underline; }
+.consent-label a {
+  color: var(--gold);
+  text-decoration: underline;
+  /* Линкът да си остане кликаем за навигация, без да пречи на toggle-а на чекбокса */
+  position: relative;
+  z-index: 1;
+}
 .consent-label a:hover { color: var(--gold-cta); }
 
 .cta-submit {
