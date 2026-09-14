@@ -12,18 +12,31 @@ var CRM_WEBHOOK_URL =
 // Къде отива човекът след успешна регистрация.
 var THANK_YOU_URL = '/webinar/thank-you.html';
 
-// Източник, записан на лийда в CRM-а.
-var LEAD_SOURCE = 'Уебинар 23 септември';
+// Дата и час на уебинара — българско време (EEST, UTC+3 през септември).
+// ISO с явна отметка +03:00, за да е коректно за всеки посетител независимо от неговата зона.
+var WEBINAR_DATETIME = '2026-09-23T19:00:00+03:00';
+
+// ── Тагът на лийда в CRM-а („откъде е дошъл") ──────────────────────────────
+// Три части: фуния · име на ресурса · дата. При нов уебинар се сменят само
+// ASSET и WEBINAR_DATETIME — тагът се сглобява сам, за да не се забрави.
+// Резултат: „Уебинар · Как да заговаряш всякакви жени · 23.09.2026"
+var FUNNEL = 'Уебинар';
+var ASSET = 'Как да заговаряш всякакви жени';
+var LEAD_SOURCE = buildLeadSource(FUNNEL, ASSET, WEBINAR_DATETIME);
+
+// „YYYY-MM-DD…" → „DD.MM.YYYY" от самия низ, без Date — за да не се измести
+// денят при посетител в друга часова зона. Празна дата → без трета част.
+function buildLeadSource(funnel, asset, isoDate) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate || '');
+  var date = m ? m[3] + '.' + m[2] + '.' + m[1] : '';
+  return [funnel, asset, date].filter(Boolean).join(' · ');
+}
 
 // GitHub репо с материалите за social proof (същото като останалите страници).
 var GH_BASE = 'https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/';
 
 // Брой текстови testimonial снимки (messages/msg-01.jpg … msg-NN.jpg).
 var TESTIMONIAL_COUNT = 36;
-
-// Дата и час на уебинара — българско време (EEST, UTC+3 през септември).
-// ISO с явна отметка +03:00, за да е коректно за всеки посетител независимо от неговата зона.
-var WEBINAR_DATETIME = '2026-09-23T19:00:00+03:00';
 
 
 /* ─── Vercel Analytics — custom events ───────────────────────── */

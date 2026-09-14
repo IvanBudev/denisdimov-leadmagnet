@@ -641,6 +641,19 @@
   });
 
   var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
+
+  // ── Тагът на лийда в CRM-а („откъде е дошъл") ──────────────────────────
+  // Три части: фуния · име на ресурса · дата (празна = ресурсът няма дата).
+  // Сменят се само трите реда — тагът се сглобява сам.
+  var FUNNEL = 'Адверториал';
+  var ASSET = 'Методът - Тя Гони';
+  var ASSET_DATE = '';
+  var LEAD_SOURCE = buildLeadSource(FUNNEL, ASSET, ASSET_DATE);
+  function buildLeadSource(funnel, asset, isoDate) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate || '');
+    var date = m ? m[3] + '.' + m[2] + '.' + m[1] : '';
+    return [funnel, asset, date].filter(Boolean).join(' · ');
+  }
   var BIGARENA_PROXY_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/bigarena-order?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j';
   var BOOK_PRICE = 17.90;
   var SHIPPING_FEE = 4.35;
@@ -698,7 +711,7 @@
         email: email,
         phone: phone,
         bump: bump,
-        source: 'product-order-tya-goni'
+        source: LEAD_SOURCE
       })
     }).catch(function() {});
 

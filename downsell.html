@@ -346,6 +346,19 @@
 <script>
   var CRM_WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j&type=paid';
 
+  // ── Тагът на лийда в CRM-а („откъде е дошъл") ──────────────────────────
+  // Три части: фуния · име на ресурса · дата (празна = ресурсът няма дата).
+  // Сменят се само трите реда — тагът се сглобява сам.
+  var FUNNEL = 'Адверториал';
+  var ASSET = 'Методът - Тя Гони';
+  var ASSET_DATE = '';
+  var LEAD_SOURCE = buildLeadSource(FUNNEL, ASSET, ASSET_DATE);
+  function buildLeadSource(funnel, asset, isoDate) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate || '');
+    var date = m ? m[3] + '.' + m[2] + '.' + m[1] : '';
+    return [funnel, asset, date].filter(Boolean).join(' · ');
+  }
+
   var incomingParams = new URLSearchParams(window.location.search);
   var contactName = incomingParams.get('name') || '';
   var contactPhone = incomingParams.get('phone') || '';
@@ -362,7 +375,7 @@
         name: contactName,
         phone: contactPhone,
         email: contactEmail,
-        source: 'downsell-tya-goni-chat-messages'
+        source: LEAD_SOURCE
       })
     })
     .then(function() {
