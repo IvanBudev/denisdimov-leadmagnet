@@ -12,31 +12,18 @@ var CRM_WEBHOOK_URL =
 // Къде отива човекът след успешна регистрация.
 var THANK_YOU_URL = '/webinar/thank-you.html';
 
-// Дата и час на уебинара — българско време (EEST, UTC+3 през септември).
-// ISO с явна отметка +03:00, за да е коректно за всеки посетител независимо от неговата зона.
-var WEBINAR_DATETIME = '2026-09-23T19:00:00+03:00';
-
-// ── Тагът на лийда в CRM-а („откъде е дошъл") ──────────────────────────────
-// Три части: фуния · име на ресурса · дата. При нов уебинар се сменят само
-// ASSET и WEBINAR_DATETIME — тагът се сглобява сам, за да не се забрави.
-// Резултат: „Уебинар · Как да заговаряш без страх · 23.09.2026"
-var FUNNEL = 'Уебинар';
-var ASSET = 'Как да заговаряш без страх';
-var LEAD_SOURCE = buildLeadSource(FUNNEL, ASSET, WEBINAR_DATETIME);
-
-// „YYYY-MM-DD…" → „DD.MM.YYYY" от самия низ, без Date — за да не се измести
-// денят при посетител в друга часова зона. Празна дата → без трета част.
-function buildLeadSource(funnel, asset, isoDate) {
-  var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate || '');
-  var date = m ? m[3] + '.' + m[2] + '.' + m[1] : '';
-  return [funnel, asset, date].filter(Boolean).join(' · ');
-}
+// Източник, записан на лийда в CRM-а.
+var LEAD_SOURCE = 'Уебинар 23 септември';
 
 // GitHub репо с материалите за social proof (същото като останалите страници).
 var GH_BASE = 'https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/';
 
 // Брой текстови testimonial снимки (messages/msg-01.jpg … msg-NN.jpg).
 var TESTIMONIAL_COUNT = 36;
+
+// Дата и час на уебинара — българско време (EEST, UTC+3 през септември).
+// ISO с явна отметка +03:00, за да е коректно за всеки посетител независимо от неговата зона.
+var WEBINAR_DATETIME = '2026-09-23T19:00:00+03:00';
 
 
 /* ─── Vercel Analytics — custom events ───────────────────────── */
@@ -299,21 +286,31 @@ function vaTrack(name, data) {
     btn.disabled = true;
     btn.textContent = 'Изпращане...';
 
-    function done() {
-      if (typeof fbq === 'function') fbq('track', 'Lead');
-      vaTrack('lead_submitted', { source: LEAD_SOURCE });
-      window.location.href = THANK_YOU_URL;
+    var payload = JSON.stringify({ name: name, email: email, phone: phone, source: LEAD_SOURCE });
+
+    // sendBeacon вместо fetch — заявката преживява незабавна навигация/
+    // затваряне на таба (fetch понякога се прекъсва в Facebook in-app
+    // browser-а точно когато потребителят бързо продължи напред).
+    // fetch с keepalive е fallback за браузъри без sendBeacon поддръжка.
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(CRM_WEBHOOK_URL, new Blob([payload], { type: 'text/plain' }));
+    } else {
+      fetch(CRM_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true
+      }).catch(function () { /* лийдът не е критично загубен */ });
     }
 
-    fetch(CRM_WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, phone: phone, source: LEAD_SOURCE })
-    })
-      .then(done)
-      .catch(function () {
-        // Лийдът не е критично загубен — все пак пращаме човека към thank-you.
-        done();
-      });
+    if (typeof fbq === 'function') fbq('track', 'Lead');
+    vaTrack('lead_submitted', { source: LEAD_SOURCE });
+
+    // Кратко изчакване преди redirect — pixel/analytics заявките са
+    // асинхронни (beacon/img), и мигновен location.href понякога ги
+    // прекъсва преди да са излетели (особено в Facebook in-app browser).
+    setTimeout(function () {
+      window.location.href = THANK_YOU_URL;
+    }, 300);
   });
 })();
