@@ -222,26 +222,20 @@ function vaTrack(name, data) {
 })();
 
 
-/* ─── Consent чекбокс — надежден клик върху целия ред ──────────
-   Съзнателно БЕЗ <label for="..."> около текста — нативното
-   label→input forwarding на многоредов, увиващ се текст е ненадеждно
-   (клик близо до/между редовете понякога изобщо не стига до input-а,
-   а понякога води до двоен toggle, който се самоанулира). Вместо това
-   целият ред е обикновен div с ЕДИН click handler, който сам решава
-   checked състоянието — детерминирано, без да разчита на native
-   поведение. Линкът "Политика за поверителност" се отваря в нов таб
-   (target="_blank"), затова кликът върху него също маркира чекбокса —
-   потребителят не губи мястото си на страницата, а "прочетох и приемам"
-   е едно и също действие. */
+/* ─── Consent линк — маркира чекбокса и при клик върху него ────
+   Линкът "Политика за поверителност" е вътре в <label>, но е
+   interactive child елемент, затова браузърът НЕ toggle-ва чекбокса
+   при клик директно върху линка (само при клик върху останалия текст
+   на label-а). Линкът се отваря в нов таб (target="_blank"), така че
+   потребителят не губи мястото си — кликът върху него означава
+   "прочетох и приемам", затова маркираме чекбокса ръчно. */
 (function () {
-  var wrap = document.getElementById('consent-label-wrap');
+  var consentLink = document.querySelector('.consent-text a');
   var consentInput = document.getElementById('field-consent');
-  if (!wrap || !consentInput) return;
+  if (!consentLink || !consentInput) return;
 
-  wrap.addEventListener('click', function (e) {
-    if (e.target === consentInput) return; // директен клик върху input-а — браузърът вече го превключи сам
-    consentInput.checked = !consentInput.checked;
-    consentInput.dispatchEvent(new Event('change', { bubbles: true }));
+  consentLink.addEventListener('click', function () {
+    consentInput.checked = true;
   });
 })();
 
