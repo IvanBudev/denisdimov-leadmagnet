@@ -62,7 +62,7 @@
   .sec-label .num {
     font-size: 12px;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--steel);
     letter-spacing: 0.05em;
   }
   .sec-label .tag {
@@ -74,11 +74,40 @@
 
   /* HERO */
   .hero {
-    padding: 70px 20px 24px;
+    padding: 48px 20px 32px;
+  }
+  .hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--bg2);
+    border: 1px solid var(--steel);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 24px 60px -32px rgba(0,0,0,0.75), 0 0 0 1px rgba(125,138,158,0.15), 0 1px 0 rgba(255,255,255,0.03) inset;
+  }
+  .hero-badge-row {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .hero-badge-row .cta-badge {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: rgba(155,61,61,0.1);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .hero-main-row {
+    display: flex;
+    flex-direction: column-reverse;
     align-items: center;
     text-align: center;
+    gap: 24px;
   }
   .hero img.avatar {
     width: 110px;
@@ -86,14 +115,30 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--steel);
-    margin-bottom: 24px;
   }
-  .hero-text { max-width: 620px; }
+  .hero-logo-frame {
+    flex-shrink: 0;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero img.avatar.logo {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    border-radius: 0;
+    object-fit: contain;
+    border: none;
+    background: transparent;
+  }
+  .hero-text { max-width: 620px; text-align: center; }
   .hero .eyebrow {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--accent);
+    color: var(--steel);
     font-weight: 700;
     margin-bottom: 14px;
   }
@@ -105,13 +150,21 @@
     line-height: 1.2;
   }
   .hero h1 span { color: var(--steel-light); }
-  .hero .sub { margin-top: 16px; color: var(--text2); font-size: 15px; }
+  .hero .sub {
+    margin-top: 28px;
+    color: var(--text2);
+    font-size: 15px;
+    text-align: center;
+  }
   .confirm-notice {
     margin-top: 24px;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     gap: 12px;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     background: rgba(155,61,61,0.08);
     border: 1px solid var(--accent);
     border-radius: 10px;
@@ -129,7 +182,16 @@
     color: var(--muted);
   }
   @media (min-width: 900px) {
-    .hero img.avatar { width: 160px; height: 160px; margin-bottom: 32px; }
+    .hero-inner { padding: 48px; }
+    .hero-main-row {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: 48px;
+    }
+    .hero-logo-frame { width: 260px; height: 260px; order: 2; }
+    .hero-text { text-align: left; order: 1; }
+    .hero img.avatar:not(.logo) { width: 160px; height: 160px; }
   }
 
   section.block { padding: 10px 20px 74px; }
@@ -191,7 +253,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--accent);
+    color: var(--steel);
   }
   .video-answer h2 { margin: 0 0 22px; }
 
@@ -530,8 +592,6 @@
     border-top: 1px solid var(--border);
   }
 </style>
-<!-- Nurturing tracker — свързва посещението с лийда в CRM-а по токена от линка -->
-<script src="https://crm-denis-dimov.vercel.app/nt.js" defer></script>
 </head>
 <body>
 
@@ -540,10 +600,18 @@
 
 <!-- ============ 00 — HERO ============ -->
 <div class="hero wrap">
-  <img class="avatar" src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/photo/denis-photo.jpg" alt="Денис Димов">
-  <div class="hero-text">
-    <div class="eyebrow">Преди да поговорим</div>
-    <h1>Академия за <span>мъжка увереност на Денис Димов</span></h1>
+  <div class="hero-inner">
+    <div class="hero-badge-row">
+      <span class="cta-badge">Материали преди разговора</span>
+    </div>
+    <div class="hero-main-row">
+      <div class="hero-logo-frame">
+        <img class="avatar logo" src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/photo/academy-logo-v2.png" alt="Академия за мъжка увереност">
+      </div>
+      <div class="hero-text">
+        <h1>Всичко, което трябва да знаеш за <span>Академия за мъжка увереност</span></h1>
+      </div>
+    </div>
     <p class="sub">Предстои ни важен разговор, изгледай видеата отдолу, за да бъдеш максимално информиран за нас.</p>
     <div class="confirm-notice">
       <span class="warn-icon">⚠️</span>
@@ -648,16 +716,6 @@
 
     <div class="video-grid">
       <div class="video-item">
-        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.jpg">
-          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-item">
-        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.jpg">
-          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-item">
         <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-3.jpg">
           <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-3.mp4" type="video/mp4">
         </video>
@@ -665,6 +723,16 @@
       <div class="video-item">
         <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-4.jpg">
           <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-4.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-item">
+        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.jpg">
+          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-item">
+        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.jpg">
+          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.mp4" type="video/mp4">
         </video>
       </div>
     </div>
@@ -683,7 +751,7 @@
       </div>
       <div class="feature">
         <div class="icon">🗓️</div>
-        <div><h3>6-месечна програма</h3><p>Достатъчно време да промениш реално мисленето и поведението си, не бърз "трик".</p></div>
+        <div><h3>3-месечна програма</h3><p>Достатъчно време да промениш реално мисленето и поведението си, не бърз "трик".</p></div>
       </div>
       <div class="feature">
         <div class="icon">🎯</div>
@@ -696,7 +764,7 @@
     </div>
     <div class="guarantee-box">
       <div class="label">🛡️ Гаранция</div>
-      <p>Ако не постигнеш резултат в рамките на 6-те месеца, Денис продължава да работи с теб напълно безплатно, докато не постигнеш резултат.</p>
+      <p>Ако не постигнеш резултат в рамките на 3-те месеца, Денис продължава да работи с теб напълно безплатно в следващите 3 месеца, докато не постигнеш резултат.</p>
     </div>
   </div>
 </section>
