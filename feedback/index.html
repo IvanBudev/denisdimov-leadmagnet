@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Отзиви за уебинара | Денис Димов</title>
+  <meta name="description" content="Сподели мнението си за уебинара с Денис Димов и виж какво казват другите участници." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000000'/%3E%3Cpath d='M16 7l7 4v6c0 5-3 7.5-7 9-4-1.5-7-4-7-9v-6z' fill='none' stroke='%23ccab40' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-2: #0d0d0d;
+      --panel: #0f0f0f;
+      --border: #242424;
+      --border-2: #363636;
+      --gold: #e0c787;
+      --gold-cta: #ccab40;
+      --gold-cta-hover: #b8962f;
+      --text: #ffffff;
+      --text-2: #cfcfcf;
+      --muted: #8a8a8a;
+      --shadow-cta: 0 1px 0 rgba(255,255,255,0.14) inset, 0 6px 22px rgba(204,171,64,0.30), 0 16px 46px rgba(204,171,64,0.14);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.65;
+    }
+    img { max-width: 100%; display: block; }
+
+    .glow {
+      position: fixed; top: -22%; left: 50%; transform: translateX(-50%);
+      width: 1000px; height: 1000px; max-width: 140vw;
+      background: radial-gradient(circle, rgba(224,199,135,0.08) 0%, rgba(0,0,0,0) 68%);
+      pointer-events: none; z-index: 0;
+    }
+    .wrap { position: relative; z-index: 1; width: 100%; max-width: 720px; margin: 0 auto; padding: 56px 20px 80px; }
+
+    .head { text-align: center; margin-bottom: 40px; }
+    .head img { height: 40px; margin: 0 auto 24px; }
+    .head h1 { font-size: clamp(26px, 4.5vw, 36px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .head p { color: var(--text-2); font-size: 16px; max-width: 480px; margin: 0 auto; }
+
+    .summary {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      margin: 28px auto 0; padding: 16px 22px; border: 1px solid var(--border);
+      border-radius: 14px; background: var(--panel); width: fit-content;
+    }
+    .summary-score { font-size: 28px; font-weight: 800; color: var(--gold); }
+    .summary-stars { color: var(--gold-cta); font-size: 18px; letter-spacing: 2px; }
+    .summary-count { color: var(--muted); font-size: 13px; }
+
+    /* ── Форма ── */
+    .card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 18px;
+      padding: 28px 24px; margin-top: 40px;
+    }
+    .card h2 { font-size: 19px; font-weight: 700; margin-bottom: 18px; }
+
+    .star-input { display: flex; gap: 8px; margin-bottom: 18px; }
+    .star-input button {
+      background: none; border: none; cursor: pointer; font-size: 30px; line-height: 1;
+      color: var(--border-2); padding: 2px; transition: transform 0.1s ease, color 0.15s ease;
+    }
+    .star-input button:hover { transform: scale(1.12); }
+    .star-input button.active { color: var(--gold-cta); }
+
+    label { display: block; font-size: 13px; color: var(--text-2); margin-bottom: 6px; font-weight: 500; }
+    .field { margin-bottom: 16px; }
+    input[type="text"], textarea {
+      width: 100%; background: var(--bg-2); border: 1px solid var(--border-2); border-radius: 10px;
+      padding: 12px 14px; color: var(--text); font-family: inherit; font-size: 15px;
+    }
+    input[type="text"]:focus, textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .form-error { display: block; color: #e06c5c; font-size: 12px; margin-top: 4px; }
+    [hidden] { display: none !important; }
+
+    .submit-btn {
+      display: block; width: 100%; text-align: center; margin-top: 4px;
+      background: var(--gold-cta); color: #1a1400; font-weight: 700; font-size: 15px;
+      border: none; border-radius: 10px; padding: 14px; cursor: pointer;
+      box-shadow: var(--shadow-cta); transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .submit-btn:hover { background: var(--gold-cta-hover); }
+    .submit-btn:active { transform: translateY(1px); }
+    .submit-btn:disabled { opacity: 0.6; cursor: default; }
+
+    .thanks { display: none; text-align: center; padding: 20px 0; }
+    .thanks.show { display: block; }
+    .thanks p { color: var(--text-2); }
+
+    /* ── Списък с отзиви ── */
+    .list-head { display: flex; align-items: baseline; justify-content: space-between; margin: 48px 0 16px; }
+    .list-head h2 { font-size: 18px; font-weight: 700; }
+    .list-head span { color: var(--muted); font-size: 13px; }
+
+    .review {
+      border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 12px;
+      background: var(--bg-2);
+    }
+    .review-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .review-avatar {
+      width: 34px; height: 34px; border-radius: 50%; background: var(--gold-cta);
+      color: #1a1400; font-weight: 700; font-size: 14px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .review-name { font-weight: 600; font-size: 14px; }
+    .review-date { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; }
+    .review-stars { color: var(--gold-cta); font-size: 14px; letter-spacing: 1px; margin-bottom: 6px; }
+    .review-text { color: var(--text-2); font-size: 14px; white-space: pre-wrap; }
+
+    .empty-state { color: var(--muted); font-size: 14px; text-align: center; padding: 24px 0; }
+  </style>
+</head>
+<body>
+
+<div class="glow" aria-hidden="true"></div>
+
+<div class="wrap">
+  <div class="head">
+    <img src="/webinar/logo.png" alt="Академия за мъжка увереност — Денис Димов" />
+    <h1>Как мина уебинарът?</h1>
+    <p>Благодарим ти, че отдели времето си. Ще се радваме да чуем мнението ти — отзивите ти помагат на други мъже да решат дали това е за тях.</p>
+  </div>
+
+  <div class="summary" id="summaryBox" hidden>
+    <div class="summary-score" id="summaryScore">—</div>
+    <div>
+      <div class="summary-stars" id="summaryStars">★★★★★</div>
+      <div class="summary-count" id="summaryCount">0 отзива</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="formWrap">
+      <h2>Остави отзив</h2>
+      <form id="reviewForm" novalidate>
+        <div class="field">
+          <label>Твоята оценка</label>
+          <div class="star-input" id="starInput" role="radiogroup" aria-label="Оценка от 1 до 5 звезди">
+            <button type="button" data-val="1" aria-label="1 звезда">★</button>
+            <button type="button" data-val="2" aria-label="2 звезди">★</button>
+            <button type="button" data-val="3" aria-label="3 звезди">★</button>
+            <button type="button" data-val="4" aria-label="4 звезди">★</button>
+            <button type="button" data-val="5" aria-label="5 звезди">★</button>
+          </div>
+          <span class="form-error" id="err-rating" hidden>Моля, избери оценка.</span>
+        </div>
+
+        <div class="field">
+          <label for="field-name">Име</label>
+          <input type="text" id="field-name" placeholder="Твоето име" required />
+          <span class="form-error" id="err-name" hidden>Моля, въведи име.</span>
+        </div>
+
+        <div class="field">
+          <label for="field-text">Отзив</label>
+          <textarea id="field-text" placeholder="Какво ти беше най-полезно от уебинара?" required></textarea>
+          <span class="form-error" id="err-text" hidden>Моля, напиши няколко думи.</span>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Изпрати отзива</button>
+      </form>
+    </div>
+    <div class="thanks" id="thanksWrap">
+      <p><strong>Благодарим ти!</strong><br />Отзивът ти вече е публикуван по-долу.</p>
+    </div>
+  </div>
+
+  <div class="list-head">
+    <h2>Отзиви от участници</h2>
+    <span id="listCount"></span>
+  </div>
+  <div id="reviewList">
+    <div class="empty-state">Зареждане на отзивите…</div>
+  </div>
+</div>
+
+<script src="/feedback/app.js"></script>
+</body>
+</html>
