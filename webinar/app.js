@@ -12,8 +12,13 @@ var CRM_WEBHOOK_URL =
 // Къде отива човекът след успешна регистрация.
 var THANK_YOU_URL = '/webinar/thank-you.html';
 
-// Източник, записан на лийда в CRM-а.
-var LEAD_SOURCE = 'Уебинар 23 септември';
+// A/B тест на дължината на фунията: /webinar/b/ е късата версия (без "За кого е",
+// social proof и FAQ секции), /webinar/ е пълната. Откриваме варианта по пътя,
+// за да остане app.js един и същ файл, споделен от двете версии.
+var AB_VARIANT = /\/webinar\/b\//.test(window.location.pathname) ? 'B' : 'A';
+
+// Източник, записан на лийда в CRM-а — включва варианта, за да могат да се сравняват в CRM-а.
+var LEAD_SOURCE = 'Уебинар 6 октомври (' + AB_VARIANT + ')';
 
 // GitHub репо с материалите за social proof (същото като останалите страници).
 var GH_BASE = 'https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/';
@@ -21,9 +26,25 @@ var GH_BASE = 'https://raw.githubusercontent.com/agatev200-hash/denis-social-pro
 // Брой текстови testimonial снимки (messages/msg-01.jpg … msg-NN.jpg).
 var TESTIMONIAL_COUNT = 36;
 
-// Дата и час на уебинара — българско време (EEST, UTC+3 през септември).
+// Текстови отзиви (дадени директно от участници в последния уебинар).
+var TEXT_TESTIMONIALS = [
+  {
+    name: 'Стефан',
+    date: '24 септември 2026 г.',
+    rating: 5,
+    text: 'Трябва да се действа, веднъж ще те отхвърлят, втори път ще те отхвърлят, трети път ще стане, няма място за страх и притеснение'
+  },
+  {
+    name: 'Stanislav Kurtev',
+    date: '24 септември 2026 г.',
+    rating: 5,
+    text: 'Полезни и ценни съвети. Супер уебинар беше'
+  }
+];
+
+// Дата и час на уебинара — българско време (EEST, UTC+3 през октомври).
 // ISO с явна отметка +03:00, за да е коректно за всеки посетител независимо от неговата зона.
-var WEBINAR_DATETIME = '2026-09-23T19:00:00+03:00';
+var WEBINAR_DATETIME = '2026-10-06T19:00:00+03:00';
 
 
 /* ─── Vercel Analytics — custom events ───────────────────────── */
@@ -39,7 +60,7 @@ function vaTrack(name, data) {
 (function () {
   document.querySelectorAll('[data-cta]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      vaTrack('cta_click', { pos: btn.getAttribute('data-cta') });
+      vaTrack('cta_click', { pos: btn.getAttribute('data-cta'), variant: AB_VARIANT });
     });
   });
 })();
@@ -98,12 +119,30 @@ function vaTrack(name, data) {
   var viewport = document.querySelector('.tt-viewport');
   if (!track) return;
 
+  function initials(name) {
+    return name.trim().split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase();
+  }
+  function stars(n) {
+    return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+  }
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
   var slides = [];
   window.ttIndex = 0;
 
   function syncHeight() {
-    var img = slides[window.ttIndex] && slides[window.ttIndex].querySelector('img');
-    if (img && img.complete && img.naturalHeight) {
+    var content = slides[window.ttIndex] && slides[window.ttIndex].firstElementChild;
+    var img = content && content.tagName === 'IMG' ? content : null;
+    if (!img) {
+      // Текстов слайд — височината му е известна веднага, без чакане за load.
+      viewport.style.height = content ? content.offsetHeight + 'px' : '';
+      return;
+    }
+    if (img.complete && img.naturalHeight) {
       viewport.style.height = img.offsetHeight + 'px';
     } else {
       // Снимката още не е заредена — не свивай viewport-а до 0
@@ -112,33 +151,55 @@ function vaTrack(name, data) {
     }
   }
 
-  for (var i = 1; i <= TESTIMONIAL_COUNT; i++) {
-    var n = i < 10 ? '0' + i : '' + i;
-
+  function addSlide(buildContent) {
+    var idx = slides.length;
     var slide = document.createElement('div');
     slide.className = 'tt-slide';
-
-    var img = document.createElement('img');
-    img.src = GH_BASE + 'messages/msg-' + n + '.jpg';
-    img.loading = 'lazy';
-    img.alt = 'Отзив от клиент';
-    (function (idx) {
-      img.onload = function () {
-        // Ре-синхронизирай, ако тъкмо заредената снимка е активната.
-        if (idx === window.ttIndex) requestAnimationFrame(syncHeight);
-      };
-    })(i - 1);
-    slide.appendChild(img);
+    buildContent(slide, idx);
     track.appendChild(slide);
     slides.push(slide);
 
     var dot = document.createElement('button');
-    dot.className = 'tt-dot' + (i === 1 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Отзив ' + i);
-    (function (idx) {
-      dot.onclick = function () { ttGoTo(idx); };
-    })(i - 1);
+    dot.className = 'tt-dot' + (idx === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Отзив ' + (idx + 1));
+    dot.onclick = function () { ttGoTo(idx); };
     dotsWrap.appendChild(dot);
+  }
+
+  // Текстови отзиви — първи в реда (най-нови, от последния уебинар).
+  TEXT_TESTIMONIALS.forEach(function (t) {
+    addSlide(function (slide) {
+      var card = document.createElement('div');
+      card.className = 'tt-item tt-item-text';
+      card.innerHTML =
+        '<div class="tt-text-top">' +
+          '<span class="tt-avatar">' + esc(initials(t.name)) + '</span>' +
+          '<span class="tt-name">' + esc(t.name) + '</span>' +
+        '</div>' +
+        '<div class="tt-stars-row">' +
+          '<span class="tt-stars">' + stars(t.rating) + '</span>' +
+          '<span class="tt-date">' + esc(t.date) + '</span>' +
+        '</div>' +
+        '<p class="tt-text">' + esc(t.text) + '</p>';
+      slide.appendChild(card);
+    });
+  });
+
+  // Snapshot testimonial-и — GitHub репо.
+  for (var i = 1; i <= TESTIMONIAL_COUNT; i++) {
+    (function (i) {
+      addSlide(function (slide, idx) {
+        var n = i < 10 ? '0' + i : '' + i;
+        var img = document.createElement('img');
+        img.src = GH_BASE + 'messages/msg-' + n + '.jpg';
+        img.loading = 'lazy';
+        img.alt = 'Отзив от клиент';
+        img.onload = function () {
+          if (idx === window.ttIndex) requestAnimationFrame(syncHeight);
+        };
+        slide.appendChild(img);
+      });
+    })(i);
   }
 
   window.addEventListener('resize', syncHeight);
@@ -169,10 +230,12 @@ function vaTrack(name, data) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) {
-          var first = slides[window.ttIndex] && slides[window.ttIndex].querySelector('img');
-          if (first) {
-            if (first.complete) syncHeight();
-            else first.addEventListener('load', syncHeight, { once: true });
+          var content = slides[window.ttIndex] && slides[window.ttIndex].firstElementChild;
+          if (content && content.tagName === 'IMG') {
+            if (content.complete) syncHeight();
+            else content.addEventListener('load', syncHeight, { once: true });
+          } else {
+            syncHeight();
           }
           setTimeout(syncHeight, 800);
         }
@@ -298,7 +361,7 @@ function vaTrack(name, data) {
     }
 
     if (typeof fbq === 'function') fbq('track', 'Lead');
-    vaTrack('lead_submitted', { source: LEAD_SOURCE });
+    vaTrack('lead_submitted', { source: LEAD_SOURCE, variant: AB_VARIANT });
 
     // Кратко изчакване преди redirect — pixel/analytics заявките са
     // асинхронни (beacon/img), и мигновен location.href понякога ги
