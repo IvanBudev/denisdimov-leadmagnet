@@ -12,10 +12,13 @@ var CRM_WEBHOOK_URL =
 // Къде отива човекът след успешна регистрация.
 var THANK_YOU_URL = '/webinar/thank-you.html';
 
-// A/B тест на дължината на фунията: /webinar/b/ е късата версия (без "За кого е",
-// social proof и FAQ секции), /webinar/ е пълната. Откриваме варианта по пътя,
-// за да остане app.js един и същ файл, споделен от двете версии.
-var AB_VARIANT = /\/webinar\/b\//.test(window.location.pathname) ? 'B' : 'A';
+// A/B тест на дължината на фунията: късата версия (Б) няма секция "Резултати"
+// (#proof) — social proof, FAQ и "За кого е" ги няма там. Пълната версия (А)
+// я има. Разчитаме на DOM маркер, не на URL пътя, защото Routing Middleware
+// (middleware.js в корена на repo-то) прави сървърен rewrite на /webinar/ към
+// произволно A или B съдържание — браузърът винаги вижда /webinar/ в адреса,
+// така че проверка по window.location.pathname вече винаги би върнала "A".
+var AB_VARIANT = document.getElementById('proof') ? 'A' : 'B';
 
 // Източник, записан на лийда в CRM-а — включва варианта, за да могат да се сравняват в CRM-а.
 var LEAD_SOURCE = 'Уебинар 6 октомври (' + AB_VARIANT + ')';
@@ -54,6 +57,13 @@ function vaTrack(name, data) {
     if (typeof window.va === 'function') window.va('event', { name: name, data: data || {} });
   } catch (e) { /* тихо */ }
 }
+
+
+/* ─── A/B page view tracking (за conversion rate по вариант) ─── */
+// Без това събитие имаме само conversions (lead_submitted) по вариант,
+// без знаменателя (колко хора изобщо са видели всеки вариант) — а без
+// знаменател не може да се смята реален conversion rate A срещу Б.
+vaTrack('ab_page_view', { variant: AB_VARIANT });
 
 
 /* ─── CTA клик tracking ─────────────────────────────────────── */
