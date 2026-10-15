@@ -1,6 +1,6 @@
 # Уебинар — landing страница
 
-Opt-in страница за безплатния уебинар на Денис (23 септември 2026, 19:00).
+Opt-in страница за безплатния уебинар на Денис (27 октомври 2026, 19:00).
 Vanilla HTML/CSS/JS, без билд. Патърнът е същият като `../forma/` и `../social-proof.html`.
 
 ## Файлове
@@ -61,7 +61,7 @@ Pixel id `2216100808812654` (същият като `../index.html`). Праща 
 Формата прави **един POST** на финала към:
 ```
 POST https://crm-denis-dimov.vercel.app/api/webhooks/lead?token=...&type=webinar
-{ "name": "...", "email": "...", "phone": "...", "source": "Уебинар 23 септември" }
+{ "name": "...", "email": "...", "phone": "...", "source": "Уебинар 27 октомври" }
 ```
 Webhook-ът създава `SetterLead` със `stage: 'WEBINAR_LEAD'` → колона „Лийдове от уебинар"
 в SETTER pipeline (между „платен ресурс" и „безплатен ресурс").
