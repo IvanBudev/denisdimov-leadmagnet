@@ -135,16 +135,6 @@ u.accent-gold {
   max-width: 74rem;
 }
 
-/* Логото е преместено във футъра (над линията с © и YouTube) */
-.footer-logo {
-  width: 84px;
-  height: 84px;
-  object-fit: cover;
-  margin: 0 auto 1rem;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.14);
-}
-
 /* Дата / час — "pill" като в примера, червен фон, бял текст */
 .date-bar {
   display: inline-block;
