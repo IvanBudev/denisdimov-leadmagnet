@@ -18,15 +18,15 @@
     body[data-variant="C"]::before {
       content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 60% 520px at 50% 0, rgba(224,32,32,.14), transparent 70%),
-        radial-gradient(circle 420px at 0 640px, rgba(224,32,32,.08), transparent 70%),
-        radial-gradient(circle 420px at 100% 1500px, rgba(224,32,32,.08), transparent 70%);
+        radial-gradient(ellipse 60% 520px at 50% 0, rgba(226,177,60,.16), transparent 70%),
+        radial-gradient(circle 420px at 0 640px, rgba(226,177,60,.10), transparent 70%),
+        radial-gradient(circle 420px at 100% 1500px, rgba(226,177,60,.10), transparent 70%);
     }
     body[data-variant="C"] .hero { background: transparent; }
     /* Секцията „Какво ще научиш“ — на цяла ширина, с лек сив фон и червена линия */
     #learn {
-      background: #f5f5f5;
-      box-shadow: 0 0 0 100vmax #f5f5f5;
+      background: #f2f5fa;
+      box-shadow: 0 0 0 100vmax #f2f5fa;
       clip-path: inset(0 -100vmax);
     }
     #learn::after { display: none; }
@@ -38,16 +38,33 @@
       font-size: clamp(1.05rem, 2.6vw, 1.3rem);
     }
     body[data-variant="C"] .hero { padding-top: clamp(2rem, 6vw, 4rem); }
+    /* Палитра: нощно синьо + злато */
+    body[data-variant="C"] {
+      --bg-2: #f2f5fa; --border: #dde3ee; --border-2: #c9d2e2;
+      --text: #0b1f3f; --text-2: #22365a; --muted: #4d5b73;
+      --gold: #9a6b00; --gold-cta: #e2b13c; --gold-cta-hover: #cf9d26;
+      --cta: #e2b13c; --cta-hover: #cf9d26; --soft: rgba(226,177,60,.16);
+      --band: #0b1f3f; --band-ink: #ffffff;
+      --shadow-cta: 0 1px 1px rgba(226,177,60,.25), 0 10px 26px -10px rgba(226,177,60,.6), 0 22px 40px -18px rgba(226,177,60,.4);
+      --shadow-card: 0 1px 1px rgba(11,31,63,.05), 0 12px 28px -18px rgba(11,31,63,.3);
+    }
+    body[data-variant="C"] .cta-btn { color: #0b1f3f; }
+    body[data-variant="C"] .date-bar { background: #0b1f3f; color: #fff; }
+    body[data-variant="C"] .h1-kicker, body[data-variant="C"] .accent-gold { color: #9a6b00; }
+    body[data-variant="C"] a:focus-visible, body[data-variant="C"] input:focus-visible { outline: 3px solid rgba(11,31,63,.5); }
+    body[data-variant="C"] #register-form input:focus, body[data-variant="C"] #register-form input:focus-visible { box-shadow: 0 0 0 4px rgba(226,177,60,.3); }
+    body[data-variant="C"] .register-block { background: radial-gradient(40rem 24rem at 85% 0%, rgba(226,177,60,.22), transparent 65%), #0b1f3f; }
+    body[data-variant="C"] .page-footer a:hover { color: #e2b13c; }
     /* Hero фон: вълни отдолу + малки плаващи елементи */
     .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
     .wave { position: absolute; left: 0; right: 0; bottom: 0; height: 190px; background-repeat: repeat-x; background-size: 1200px 100%; animation: drift linear infinite; }
-    .w1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23e02020' fill-opacity='.08'/%3E%3C/svg%3E"); animation-duration: 38s; }
-    .w2 { height: 150px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23e02020' fill-opacity='.10'/%3E%3C/svg%3E"); animation-duration: 26s; animation-direction: reverse; }
-    .w3 { height: 105px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23e02020' fill-opacity='.14'/%3E%3C/svg%3E"); animation-duration: 18s; }
+    .w1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23c9972a' fill-opacity='.08'/%3E%3C/svg%3E"); animation-duration: 38s; }
+    .w2 { height: 150px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23c9972a' fill-opacity='.10'/%3E%3C/svg%3E"); animation-duration: 26s; animation-direction: reverse; }
+    .w3 { height: 105px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23c9972a' fill-opacity='.14'/%3E%3C/svg%3E"); animation-duration: 18s; }
     @keyframes drift { to { background-position-x: -1200px; } }
     .speck { position: absolute; border-radius: 50%; animation: float ease-in-out infinite alternate; will-change: transform; }
-    .speck.dot { background: rgba(224,32,32,.4); }
-    .speck.ring { border: 1.5px solid rgba(224,32,32,.35); }
+    .speck.dot { background: rgba(201,151,42,.45); }
+    .speck.ring { border: 1.5px solid rgba(201,151,42,.4); }
     @keyframes float { from { transform: translate(0,0); opacity: .25; } to { transform: translate(var(--dx), -46px); opacity: .85; } }
     @media (prefers-reduced-motion: reduce) { .wave, .speck { animation: none !important; } }
     /* повече въздух в hero */
@@ -71,7 +88,7 @@
     .why-trust { margin-top: 1.6rem !important; font-size: 1.3rem; line-height: 1.3; }
     .why-trust strong { font-family: var(--display); font-weight: 700; }
     .host-stats li {
-      padding: 1rem .5rem; border: 1px solid rgba(0,0,0,.14); border-radius: .75rem;
+      padding: 1rem .5rem; border: 1px solid #dde3ee; border-radius: .75rem;
       text-align: center; font-size: .9rem; line-height: 1.35;
     }
     .host-stats b {
