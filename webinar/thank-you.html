@@ -113,9 +113,51 @@
       line-height: 1.6;
     }
     .ty-fallback a { color: var(--gold); }
+
+    /* Синьо + злато, като на лендинга; по-едър и контрастен текст */
+    body.ty {
+      --text:#0b1f3f; --text-2:#22365a; --muted:#4d5b73; --gold:#9a6b00;
+      --bg-2:#f2f5fa; --border:#c9d2e2;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% 0%, rgba(226,177,60,.18), transparent 70%),
+        #ffffff;
+      color: var(--text);
+      min-height: 100vh;
+    }
+    body.ty .noise, body.ty .glow { display: none; }
+    body.ty .ty-wrap { max-width: 620px; padding-top: 64px; }
+    body.ty .ty-check {
+      width: 84px; height: 84px; margin-bottom: 28px;
+      background: #0b1f3f; border: 3px solid #e2b13c; color: #e2b13c;
+      box-shadow: 0 10px 28px rgba(11,31,63,.22);
+    }
+    body.ty .ty-check svg { width: 40px; height: 40px; }
+    body.ty .ty-wrap h1 {
+      font-family: 'Lora', Georgia, serif; color: #0b1f3f;
+      font-size: clamp(32px, 7vw, 44px); font-weight: 700; letter-spacing: -0.01em;
+      margin-bottom: 22px;
+    }
+    body.ty .ty-redirect {
+      background: #ffffff; border: 2px solid #c9d2e2; border-radius: 16px;
+      padding: 30px 26px; box-shadow: 0 12px 34px rgba(11,31,63,.10);
+    }
+    body.ty .ty-redirect p { font-size: 19px; line-height: 1.6; color: #22365a; margin-bottom: 24px; }
+    body.ty .ty-redirect p strong { color: #0b1f3f; }
+    body.ty .ty-counter { font-size: 17px; font-weight: 500; color: #22365a; }
+    body.ty .ty-counter .ty-dot {
+      width: 54px; height: 54px; font-size: 24px;
+      background: #0b1f3f; border: 2px solid #e2b13c; color: #e2b13c;
+    }
+    body.ty .ty-fallback { font-size: 17px; color: #22365a; margin-top: 8px; }
+    body.ty .ty-fallback a {
+      display: inline-block; margin-top: 14px; padding: 16px 30px; border-radius: 12px;
+      background: #e2b13c; color: #0b1f3f; font-weight: 800; font-size: 17px;
+      text-decoration: none; box-shadow: 0 8px 22px rgba(226,177,60,.45);
+    }
+    body.ty .ty-fallback a:hover { background: #cf9d26; }
   </style>
 </head>
-<body>
+<body class="ty">
 
 <div class="noise" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
@@ -139,7 +181,7 @@
   </div>
 
   <p class="ty-fallback">
-    Не се ли прехвърли автоматично? <a id="viber-link" href="#" target="_blank" rel="noopener">Влез във Viber групата оттук</a>.
+    Не се ли прехвърли автоматично?<br><a id="viber-link" href="#" target="_blank" rel="noopener">Влез във Viber групата оттук</a>
   </p>
 </div>
 
