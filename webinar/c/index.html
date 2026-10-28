@@ -72,6 +72,12 @@
     .h1-kicker { margin-bottom: 1.1rem; }
     body[data-variant="C"] .hero h1 { font-size: clamp(2.3rem, 6.4vw, 3.3rem); }
     @media (max-width: 480px) { .h1-kicker { font-size: .5em; } }
+    .br-desk { display: none; }
+    @media (min-width: 900px) {
+      .br-desk { display: inline; }
+      body[data-variant="C"] .hero h1 { font-size: 3.3rem; line-height: 1.15; }
+      body[data-variant="C"] .hero .h1-kicker { font-size: .34em; }
+    }
     body[data-variant="C"] .hero-sub { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
     body[data-variant="C"] .hero .cta-btn { margin-top: clamp(2.4rem, 5vw, 3.4rem); }
     body[data-variant="C"] .hero { padding-bottom: clamp(5rem, 11vw, 8rem); }
@@ -150,7 +156,7 @@
 
     <h1>
       <span class="h1-kicker">Безплатно онлайн събитие:</span>
-      Как Да Изградиш <u class="accent-gold">Увереност С Жените</u> И Да Привличаш Тези, Които Искаш?
+      Как Да Изградиш <br class="br-desk"><u class="accent-gold">Увереност С Жените</u> <br class="br-desk">И Да Привличаш Тези, Които Искаш?
     </h1>
 
     <p class="hero-sub">
