@@ -33,6 +33,14 @@
       clip-path: inset(0 -100vmax);
     }
     #learn::after { display: none; }
+    /* Дата/час — лента на цяла ширина най-отгоре */
+    body[data-variant="C"] .date-bar {
+      display: block; position: relative; z-index: 2;
+      width: 100%; margin: 0; border-radius: 0;
+      padding: 1.1rem 1rem; text-align: center;
+      font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+    }
+    body[data-variant="C"] .hero { padding-top: clamp(2rem, 6vw, 4rem); }
     .h1-kicker {
       display: block; margin-bottom: .6rem;
       font-family: var(--body); font-size: .42em; font-weight: 700;
@@ -87,11 +95,12 @@
 <div class="noise" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
 
+<!-- Лента най-отгоре, на цяла ширина -->
+<div class="date-bar">Безплатен уебинар&nbsp;· Сряда, 4 ноември&nbsp;· 19:00 ч.</div>
+
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero">
   <div class="wrap hero-inner">
-
-    <div class="date-bar">Безплатен уебинар&nbsp;· Сряда, 4 ноември&nbsp;· 19:00 ч.</div>
 
     <h1>
       <span class="h1-kicker">Безплатно онлайн събитие:</span>
