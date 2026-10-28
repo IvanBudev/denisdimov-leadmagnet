@@ -18,10 +18,16 @@ var THANK_YOU_URL = '/webinar/thank-you.html';
 // (middleware.js в корена на repo-то) прави сървърен rewrite на /webinar/ към
 // произволно A или B съдържание — браузърът винаги вижда /webinar/ в адреса,
 // така че проверка по window.location.pathname вече винаги би върнала "A".
-var AB_VARIANT = document.getElementById('proof') ? 'A' : 'B';
+// Новата проста страница (C) се маркира изрично с data-variant на <body>.
+var AB_VARIANT = document.body.getAttribute('data-variant') ||
+  (document.getElementById('proof') ? 'A' : 'B');
+
+// Страниците могат да презапишат датата/източника за конкретен уебинар чрез
+// window.WEBINAR_CONFIG (дефинира се в <head> преди този скрипт).
+var WEBINAR_CONFIG = window.WEBINAR_CONFIG || {};
 
 // Източник, записан на лийда в CRM-а — включва варианта, за да могат да се сравняват в CRM-а.
-var LEAD_SOURCE = 'Уебинар 27 октомври (' + AB_VARIANT + ')';
+var LEAD_SOURCE = (WEBINAR_CONFIG.source || 'Уебинар 27 октомври') + ' (' + AB_VARIANT + ')';
 
 // GitHub репо с материалите за social proof (същото като останалите страници).
 var GH_BASE = 'https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/';
@@ -47,7 +53,7 @@ var TEXT_TESTIMONIALS = [
 
 // Дата и час на уебинара — българско време (EET, UTC+2 — лятното часово време свършва на 25 октомври).
 // ISO с явна отметка +03:00, за да е коректно за всеки посетител независимо от неговата зона.
-var WEBINAR_DATETIME = '2026-10-27T19:00:00+02:00';
+var WEBINAR_DATETIME = WEBINAR_CONFIG.datetime || '2026-10-27T19:00:00+02:00';
 
 
 /* ─── Vercel Analytics — custom events ───────────────────────── */
