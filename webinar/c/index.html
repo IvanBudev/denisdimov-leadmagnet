@@ -13,9 +13,31 @@
 
   <style>
     /* Само за вариант C — малки добавки върху общия styles.css */
-    .hero-note { margin: 1rem 0 0; font-size: .9rem; opacity: .7; }
-    .hero-proof { margin: 1.5rem 0 0; font-size: .95rem; opacity: .85; }
-    .hero-proof strong { color: var(--gold); font-weight: 700; }
+    /* Фон: точкова мрежа + меки червени отблясъци през цялата страница */
+    body[data-variant="C"] { position: relative; }
+    body[data-variant="C"]::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 520px at 50% 0, rgba(224,32,32,.14), transparent 70%),
+        radial-gradient(circle 420px at 0 640px, rgba(224,32,32,.08), transparent 70%),
+        radial-gradient(circle 420px at 100% 1500px, rgba(224,32,32,.08), transparent 70%),
+        radial-gradient(rgba(10,10,10,.2) 1.3px, transparent 1.8px) 0 0 / 24px 24px;
+      -webkit-mask-image: linear-gradient(#000 0, #000 700px, rgba(0,0,0,.35) 1400px, rgba(0,0,0,.2) 100%);
+              mask-image: linear-gradient(#000 0, #000 700px, rgba(0,0,0,.35) 1400px, rgba(0,0,0,.2) 100%);
+    }
+    body[data-variant="C"] .hero { background: transparent; }
+    /* Секцията „Какво ще научиш“ — на цяла ширина, с лек сив фон и червена линия */
+    #learn {
+      background: #f5f5f5;
+      box-shadow: 0 0 0 100vmax #f5f5f5;
+      clip-path: inset(0 -100vmax);
+    }
+    #learn::after { display: none; }
+    .h1-kicker {
+      display: block; margin-bottom: .6rem;
+      font-family: var(--body); font-size: .42em; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--gold);
+    }
     .host-stats {
       list-style: none; padding: 0; margin: 2rem 0 0;
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
@@ -72,7 +94,8 @@
     <div class="date-bar">Безплатен уебинар&nbsp;· Сряда, 4 ноември&nbsp;· 19:00 ч.</div>
 
     <h1>
-      Как Да Изградиш <u class="accent-gold">Увереност С Жени</u> И Да Привличаш Тези, Които Искаш
+      <span class="h1-kicker">Безплатно онлайн събитие:</span>
+      Как Да Изградиш <u class="accent-gold">Увереност С Жени</u> И Да Привличаш Тези, Които Искаш?
     </h1>
 
     <p class="hero-sub">
@@ -80,10 +103,6 @@
     </p>
 
     <a href="#register" class="cta-btn" data-cta="hero">ЗАПАЗИ СВОЕТО МЯСТО</a>
-
-    <p class="hero-note">Безплатно · Онлайн · Без запис — гледаш на живо</p>
-
-    <p class="hero-proof">Над <strong>500 видеа</strong> и <strong>стотици мъже</strong> в България, на които Денис е помогнал.</p>
 
   </div>
 </header>
