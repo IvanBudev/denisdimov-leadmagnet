@@ -20,10 +20,7 @@
       background:
         radial-gradient(ellipse 60% 520px at 50% 0, rgba(224,32,32,.14), transparent 70%),
         radial-gradient(circle 420px at 0 640px, rgba(224,32,32,.08), transparent 70%),
-        radial-gradient(circle 420px at 100% 1500px, rgba(224,32,32,.08), transparent 70%),
-        radial-gradient(rgba(10,10,10,.2) 1.3px, transparent 1.8px) 0 0 / 24px 24px;
-      -webkit-mask-image: linear-gradient(#000 0, #000 700px, rgba(0,0,0,.35) 1400px, rgba(0,0,0,.2) 100%);
-              mask-image: linear-gradient(#000 0, #000 700px, rgba(0,0,0,.35) 1400px, rgba(0,0,0,.2) 100%);
+        radial-gradient(circle 420px at 100% 1500px, rgba(224,32,32,.08), transparent 70%);
     }
     body[data-variant="C"] .hero { background: transparent; }
     /* Секцията „Какво ще научиш“ — на цяла ширина, с лек сив фон и червена линия */
@@ -41,7 +38,24 @@
       font-size: clamp(1.05rem, 2.6vw, 1.3rem);
     }
     body[data-variant="C"] .hero { padding-top: clamp(2rem, 6vw, 4rem); }
-    body[data-variant="C"] .attention-box { margin-bottom: 2rem; }
+    /* Hero фон: вълни отдолу + малки плаващи елементи */
+    .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .wave { position: absolute; left: 0; right: 0; bottom: 0; height: 190px; background-repeat: repeat-x; background-size: 1200px 100%; animation: drift linear infinite; }
+    .w1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23e02020' fill-opacity='.08'/%3E%3C/svg%3E"); animation-duration: 38s; }
+    .w2 { height: 150px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23e02020' fill-opacity='.10'/%3E%3C/svg%3E"); animation-duration: 26s; animation-direction: reverse; }
+    .w3 { height: 105px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 160' preserveAspectRatio='none'%3E%3Cpath d='M0 80C200 20 400 20 600 80S1000 140 1200 80V160H0Z' fill='%23e02020' fill-opacity='.14'/%3E%3C/svg%3E"); animation-duration: 18s; }
+    @keyframes drift { to { background-position-x: -1200px; } }
+    .speck { position: absolute; border-radius: 50%; animation: float ease-in-out infinite alternate; will-change: transform; }
+    .speck.dot { background: rgba(224,32,32,.4); }
+    .speck.ring { border: 1.5px solid rgba(224,32,32,.35); }
+    @keyframes float { from { transform: translate(0,0); opacity: .25; } to { transform: translate(var(--dx), -46px); opacity: .85; } }
+    @media (prefers-reduced-motion: reduce) { .wave, .speck { animation: none !important; } }
+    /* повече въздух в hero */
+    body[data-variant="C"] .attention-box { margin-bottom: clamp(2.6rem, 6vw, 3.8rem); }
+    .h1-kicker { margin-bottom: 1.1rem; }
+    body[data-variant="C"] .hero-sub { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+    body[data-variant="C"] .hero .cta-btn { margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+    body[data-variant="C"] .hero { padding-bottom: clamp(5rem, 11vw, 8rem); }
     .h1-kicker {
       display: block; margin-bottom: .6rem;
       font-family: var(--body); font-size: .42em; font-weight: 700;
@@ -101,6 +115,7 @@
 
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero">
+  <div class="hero-bg" aria-hidden="true"><div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div><div id="specks"></div></div>
   <div class="wrap hero-inner">
 
     <!-- Обръщение към аудиторията -->
@@ -260,6 +275,19 @@
   <p>© Денис Димов &nbsp;·&nbsp; <a href="https://www.youtube.com/@denisdimovtips" target="_blank" rel="noopener">YouTube канал</a></p>
 </footer>
 
+<script>
+  (function () {
+    var box = document.getElementById('specks'), seed = 11, html = '';
+    function r() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    for (var i = 0; i < 22; i++) {
+      var size = 4 + Math.round(r() * 8), ring = i % 4 === 0;
+      html += '<span class="speck ' + (ring ? 'ring' : 'dot') + '" style="left:' + Math.round(r() * 97) + '%;top:' + Math.round(r() * 78) +
+        '%;width:' + (ring ? size + 8 : size) + 'px;height:' + (ring ? size + 8 : size) + 'px;--dx:' + (Math.round(r() * 50) - 25) +
+        'px;animation-duration:' + (6 + Math.round(r() * 8)) + 's;animation-delay:-' + Math.round(r() * 12) + 's"></span>';
+    }
+    box.innerHTML = html;
+  })();
+</script>
 <script src="/webinar/app.js"></script>
 
 </body>
