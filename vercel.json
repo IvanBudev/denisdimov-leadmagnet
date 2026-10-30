@@ -23,6 +23,8 @@
     { "source": "/webinar/", "destination": "/webinar/index.html" },
     { "source": "/webinar/b", "destination": "/webinar/b/index.html" },
     { "source": "/webinar/b/", "destination": "/webinar/b/index.html" },
+    { "source": "/webinar/replay", "destination": "/webinar/replay/index.html" },
+    { "source": "/webinar/replay/", "destination": "/webinar/replay/index.html" },
     { "source": "/feedback", "destination": "/feedback/index.html" },
     { "source": "/feedback/", "destination": "/feedback/index.html" },
     { "source": "/qualify/", "destination": "https://forma-khaki-nine.vercel.app/" },

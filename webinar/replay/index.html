@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Запис от уебинара: Увереност с жени</title>
+<meta name="description" content="Запис от безплатния уебинар на Денис Димов: как да изградиш увереност с жени.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Onest:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF; --bg-2:#F2F5FA; --surface:#FFFFFF; --ink:#0B1F3F; --muted:#4D5B73; --line:#DDE3EE;
+  --accent:#E2B13C; --accent-text:#9A6B00; --accent-ink:#0B1F3F; --soft:#FBF1DA; --calm:#E2B13C; --calm-soft:#0B1F3F;
+  --band:#0B1F3F; --band-ink:#FFFFFF;
+  --display:"Lora",Georgia,"Times New Roman",serif;
+  --body:"Onest","Segoe UI",system-ui,-apple-system,sans-serif;
+  --spring:cubic-bezier(.34,1.4,.64,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.7 var(--body);-webkit-font-smoothing:antialiased}
+p{margin:0}
+h1,h2,h3{font-family:var(--display);margin:0;font-weight:700;text-wrap:balance;letter-spacing:-.03em;line-height:1.1}
+em{font-style:italic;font-weight:600;color:var(--accent-text)}
+[hidden]{display:none!important}
+
+.page{position:relative;overflow:hidden;padding-block:clamp(2.5rem,7vw,5rem) clamp(2.5rem,6vw,4rem)}
+.orbits{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.orb{position:absolute;width:40rem;height:40rem}
+.orb i{position:absolute;inset:0;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);will-change:transform;animation:spin 60s linear infinite}
+.orb i::after{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--accent)}
+.orb i:nth-child(2){inset:4rem;border-style:dashed;border-color:color-mix(in srgb,var(--ink) 30%,transparent);animation:spin 44s linear infinite reverse}
+.orb i:nth-child(2)::after{background:var(--ink)}
+.orb.tl{left:-14rem;top:-14rem}
+.orb.br{right:-14rem;bottom:-16rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:640px){.orb{width:26rem;height:26rem}.orb.tl{left:-11rem;top:-11rem}.orb.br{right:-11rem;bottom:-11rem}}
+
+.wrap{position:relative;z-index:1;max-width:54rem;margin:0 auto;padding-inline:clamp(1rem,4vw,2rem)}
+.head{text-align:center}
+.event{display:inline-block;margin-bottom:1.3rem;padding:.6rem 1.6rem;border-radius:999px;background:var(--soft);color:var(--accent-text);font-weight:700;font-size:.95rem;letter-spacing:.02em}
+h1{font-size:clamp(2rem,5.6vw,3.2rem);max-width:22ch;margin-inline:auto}
+.sub{margin:1rem auto 0;max-width:36rem;color:var(--muted);font-size:clamp(1.05rem,2.4vw,1.2rem)}
+
+.start-note{display:inline-block;margin-top:1.1rem;padding:.55rem 1.2rem;border-radius:999px;border:1.5px solid var(--line);background:var(--bg-2);color:var(--ink);font-size:.95rem}
+.start-note b{color:var(--accent-text)}
+
+/* бутони */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;background:var(--accent);color:var(--accent-ink);
+  font:700 1.08rem/1.25 var(--body);padding:1.05rem 2rem;border-radius:.9rem;border:0;text-decoration:none;cursor:pointer;text-align:center;
+  box-shadow:0 1px 1px rgba(226,177,60,.2),0 8px 18px -8px rgba(226,177,60,.45),0 22px 40px -18px rgba(226,177,60,.4);
+  transition:transform .25s var(--spring),filter .2s ease}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn[disabled]{opacity:.6;cursor:progress;transform:none}
+.btn svg{width:1.2rem;height:1.2rem;flex:none}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--accent-text);box-shadow:none;border:1.5px solid color-mix(in srgb,var(--accent) 40%,var(--line))}
+.btn.ghost:hover{background:var(--soft);filter:none}
+
+.ended{padding:2.4rem 1.4rem;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:1.4rem;box-shadow:0 14px 30px -20px rgba(11,31,63,.3)}
+.ended h2{font-size:clamp(1.3rem,3.4vw,1.8rem);margin-bottom:.7rem}
+.ended p{color:var(--muted);max-width:30rem;margin-inline:auto}
+
+/* видео */
+.video{margin-top:2.4rem}
+.frame{position:relative;aspect-ratio:16/9;border-radius:1.4rem;overflow:hidden;background:var(--band);
+  box-shadow:0 2px 2px rgba(11,31,63,.1),0 24px 40px -22px rgba(226,177,60,.45),0 50px 80px -50px rgba(11,31,63,.45)}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.card-video{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;text-align:center;padding:1.5rem;color:var(--band-ink);
+  background:radial-gradient(40rem 22rem at 85% 0%,color-mix(in srgb,var(--accent) 45%,transparent),transparent 65%),radial-gradient(34rem 20rem at 0% 100%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 65%),var(--band)}
+.card-video h2{font-size:clamp(1.3rem,3.6vw,2rem);color:#fff;max-width:24ch}
+.play{width:4.2rem;height:4.2rem;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:0 12px 30px -10px rgba(226,177,60,.8)}
+.play svg{width:1.7rem;height:1.7rem;margin-left:.2rem;color:var(--ink)}
+.pw{font-size:.95rem;color:color-mix(in srgb,var(--band-ink) 75%,transparent)}
+.pw b{color:#fff;user-select:all}
+
+/* CTA */
+.cta{margin-top:2.6rem;text-align:center}
+.cta p{color:var(--muted);margin-top:.9rem;font-size:.95rem}
+
+/* форма */
+.flow{margin-top:2.6rem;scroll-margin-top:1.5rem}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:1.5rem;padding:clamp(1.4rem,4vw,2.4rem);
+  box-shadow:0 1px 1px rgba(11,31,63,.04),0 14px 30px -20px rgba(11,31,63,.3),0 36px 70px -46px rgba(226,177,60,.3)}
+.progress{display:flex;align-items:center;gap:.9rem;margin-bottom:1.6rem}
+.bar{flex:1;height:.45rem;border-radius:99px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--accent);border-radius:99px;transform-origin:left;transform:scaleX(0);transition:transform .45s var(--spring)}
+.count{font-size:.85rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.panel h2{font-size:clamp(1.4rem,3.6vw,1.9rem);letter-spacing:-.02em;line-height:1.2;margin-bottom:1.3rem}
+.opts{display:flex;flex-direction:column;gap:.7rem;border:0;margin:0;padding:0}
+.opt{position:relative;display:block}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;align-items:center;gap:.85rem;padding:1rem 1.1rem;border:1.5px solid var(--line);border-radius:1rem;background:var(--bg-2);font-weight:500;line-height:1.4;transition:border-color .2s ease,background .2s ease,transform .25s var(--spring)}
+.opt span::before{content:"";flex:none;width:1.25rem;height:1.25rem;border-radius:50%;border:2px solid var(--line);background:#fff;transition:border-color .2s ease,background .2s ease,box-shadow .2s ease}
+.opt:hover span{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));transform:translateY(-1px)}
+.opt input:checked + span{border-color:var(--accent);background:var(--soft)}
+.opt input:checked + span::before{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px #fff}
+.opt input:focus-visible + span{outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);outline-offset:3px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.4rem;min-height:2.5rem}
+.back{background:none;border:0;color:var(--muted);font:600 .95rem var(--body);cursor:pointer;padding:.4rem .2rem;border-radius:.5rem}
+.back:hover{color:var(--accent-text)}
+.field{margin-bottom:1.1rem}
+label{display:block;font-weight:600;font-size:.92rem;margin-bottom:.4rem}
+input[type=text],input[type=email],input[type=tel]{width:100%;font:400 1rem var(--body);color:var(--ink);background:var(--bg-2);border:1.5px solid var(--line);border-radius:.8rem;padding:.9rem 1rem;transition:border-color .2s ease,box-shadow .2s ease}
+input[type=text]:hover,input[type=email]:hover,input[type=tel]:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.consent{display:flex;gap:.7rem;align-items:flex-start;font-weight:400;font-size:.85rem;line-height:1.5;color:var(--muted);margin:0 0 1.2rem;cursor:pointer}
+.consent input{flex:none;width:1.15rem;height:1.15rem;margin:.15rem 0 0;accent-color:var(--accent);cursor:pointer}
+.err{color:#B3261E;font-size:.9rem;margin:-.4rem 0 1rem}
+.other{margin-top:1.1rem}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.panel .btn.full{width:100%}
+
+/* резултат */
+.result{text-align:center}
+.result .ico{width:3.4rem;height:3.4rem;border-radius:50%;display:grid;place-items:center;margin:0 auto 1.1rem;background:var(--calm-soft);color:var(--calm);border:2px solid var(--accent)}
+.result .ico svg{width:1.6rem;height:1.6rem}
+.result.no .ico{background:var(--soft);color:var(--accent-text)}
+.result p{color:var(--muted);max-width:32rem;margin:.8rem auto 0}
+.result .btn{margin-top:1.4rem}
+
+#calendly{margin-top:1.4rem;min-width:280px;height:700px;border-radius:1rem;overflow:hidden}
+footer{position:relative;z-index:1;text-align:center;font-size:.85rem;color:var(--muted);margin-top:3rem;padding-inline:1rem}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="orbits" aria-hidden="true"><div class="orb tl"><i></i><i></i></div><div class="orb br"><i></i><i></i></div></div>
+  <div class="wrap">
+    <header class="head">
+      <p class="event">Запис от уебинара</p>
+      <h1>Запис от уебинара за <em>увереността с жени</em></h1>
+      <p class="sub">Безплатно събитие с Денис Димов.</p>
+      <p class="start-note">Уебинарът започва от <b>26:12</b> минута на записа.</p>
+    </header>
+
+    <section class="video" aria-label="Запис на уебинара">
+      <div class="frame" id="frame"></div>
+    </section>
+
+    <section class="cta" id="cta">
+      <button type="button" class="btn" id="start">Запази си разговор с Денис</button>
+      <p>Отговори на няколко кратки въпроса и ще видиш дали разговорът е подходящ за теб.</p>
+    </section>
+
+    <section class="flow" id="flow" hidden aria-live="polite"></section>
+  </div>
+  <footer>© Денис Димов</footer>
+</main>
+
+<script>
+/* ===== НАСТРОЙКИ ===== */
+var VIDEO_URL = "https://www.youtube-nocookie.com/embed/yXZOEB90MfI?rel=0&modestbranding=1&playsinline=1&start=1572";   // Embed линк (YouTube/Vimeo); start=1572 = 26:12
+var VIDEO_PASSCODE = "";     // Само за Zoom вариант
+var VIDEO_EMBED = true;      // true = плейър на страницата (YouTube/Vimeo). false = бутон към Zoom
+var RECORDING_ACTIVE = true; // false = записът е свален от страницата
+var WEBHOOK_URL = "https://crm-denis-dimov.vercel.app/api/webhooks/qualified-lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j";
+var CALENDLY_URL = "https://calendly.com/denisdimov/new-meeting";
+var LEAD_SOURCE = "Запис от уебинара";
+var YOUTUBE_URL = "https://www.youtube.com/@denisdimovtips";
+
+/* Въпроси. block:true = отговорът дисквалифицира */
+var QUESTIONS = [
+  {k:"problem", q:"Кое най-точно описва ситуацията ти с жените?", o:[
+    {v:"freeze", t:"Сковавам се и не смея да направя първата стъпка"},
+    {v:"friend", t:"Правя всичко правилно, а накрая пак съм просто приятел"},
+    {v:"repeat", t:"Един и същ сценарий се повтаря с различни жени"},
+    {v:"other", t:"Нещо друго"}]},
+  {k:"duration", q:"От колко време ти е трудно с това?", o:[
+    {v:"lt1", t:"До 1 година"},
+    {v:"1to3", t:"1 до 3 години"},
+    {v:"gt3", t:"Повече от 3 години"}]},
+  {k:"goal", q:"Какво искаш да получиш от разговора?", o:[
+    {v:"lasting", t:"Да разбера какво ми пречи, да изградя увереност и по-добри взаимоотношения с жените."},
+    {v:"quick", t:"Готови реплики, манипулации или трикове, които да манипулират жените.", block:true, msg:"Денис не може да ти бъде полезен, ако търсиш трик.", more:"Методът му не е за заучени реплики и бързи хватки, а за промяна в начина, по който се държиш и възприемаш себе си. Затова на база на отговора ти разговорът няма да ти бъде полезен и няма да можем да помогнем с твоята ситуация."},
+    {v:"other", t:"Друго", text:true}]},
+
+  {k:"tried", q:"Опитвал ли си вече да го решиш сам?", o:[
+    {v:"yes", t:"Да, гледал съм видеа и съм чел, но сам не се получава"},
+    {v:"little", t:"Малко"},
+    {v:"no", t:"Не, това е първият ми опит"}]},
+  {k:"invest", q:"Готов ли си да инвестираш време и средства, за да решиш този проблем?", o:[
+    {v:"yes", t:"Да, готов съм"},
+    {v:"depends", t:"Зависи от това, което чуя на разговора"},
+    {v:"no", t:"Не в момента", block:true, msg:"Разбираме те напълно.", more:"Работата с Денис изисква да си готов да отделиш време и средства за себе си. Затова на база на отговора ти сега разговорът няма да ти бъде полезен и няма да можем да помогнем с твоята ситуация. Когато почувстваш, че е момент, ще се радваме да те видим."}]}
+];
+
+/* ===== ВИДЕО ===== */
+(function(){
+  var f = document.getElementById("frame");
+  if (!RECORDING_ACTIVE) {
+    f.style.aspectRatio = "auto";
+    f.style.background = "none";
+    f.style.boxShadow = "none";
+    f.innerHTML = '<div class="ended"><h2>Записът вече не е достъпен</h2><p>Времето за гледане на записа от уебинара изтече.</p></div>';
+    return;
+  }
+  if (/\.mp4(\?|$)/i.test(VIDEO_URL)) {
+    f.innerHTML = '<video src="'+VIDEO_URL+'#t=1572" controls playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;background:#000"></video>';
+    return;
+  }
+  if (VIDEO_URL && VIDEO_EMBED) {
+    f.innerHTML = '<iframe src="'+VIDEO_URL+'" title="Запис на уебинара" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    return;
+  }
+  var html = '<div class="card-video"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span>';
+  if (VIDEO_URL) {
+    html += '<h2>Запис на уебинара</h2><a class="btn" href="'+VIDEO_URL+'" target="_blank" rel="noopener">Гледай записа</a>';
+    if (VIDEO_PASSCODE) html += '<p class="pw">Код за достъп: <b>'+VIDEO_PASSCODE+'</b></p>';
+  } else {
+    html += '<h2>Записът скоро ще е тук</h2>';
+  }
+  f.innerHTML = html + '</div>';
+})();
+
+
+/* ===== ФОРМА ===== */
+var flow = document.getElementById("flow");
+var answers = {};
+var contact = {};
+var step = 0;               // 0 = контакти, 1..N = въпроси
+var N = QUESTIONS.length;
+var TOTAL = N + 1;
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function progress(i){ return '<div class="progress"><div class="bar"><i style="transform:scaleX('+(i/TOTAL)+')"></i></div><span class="count">'+i+' от '+TOTAL+'</span></div>'; }
+
+function renderContact(){
+  var h = '<div class="panel">'+progress(1)+'<h2>Първо, как да те наричаме?</h2>'+
+  '<form id="cform" novalidate>'+
+  '<div class="field"><label for="name">Име</label><input type="text" id="name" name="name" autocomplete="name" required value="'+esc(contact.name||"")+'"></div>'+
+  '<div class="field"><label for="email">Имейл</label><input type="email" id="email" name="email" autocomplete="email" required value="'+esc(contact.email||"")+'"></div>'+
+  '<div class="field"><label for="phone">Телефон</label><input type="tel" id="phone" name="phone" autocomplete="tel" required value="'+esc(contact.phone||"")+'"></div>'+
+  '<div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>'+
+  '<label class="consent"><input type="checkbox" id="consent" required'+(contact.consent?' checked':'')+'><span>Съгласен съм да се свържете с мен във връзка с разговора.</span></label>'+
+  '<p class="err" id="err" hidden></p>'+
+  '<button type="submit" class="btn full">Продължи</button></form></div>';
+  flow.innerHTML = h;
+  document.getElementById("cform").addEventListener("submit", submitContact);
+}
+
+function submitContact(e){
+  e.preventDefault();
+  var f = e.target, err = document.getElementById("err");
+  var name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim();
+  var bad = "";
+  if (!name) bad = "Моля, въведи името си.";
+  else if (!/^\S+@\S+\.\S+$/.test(email)) bad = "Моля, въведи валиден имейл.";
+  else if (phone.replace(/\D/g,"").length < 7) bad = "Моля, въведи валиден телефон.";
+  else if (!document.getElementById("consent").checked) bad = "Моля, потвърди съгласието.";
+  if (bad) { err.textContent = bad; err.hidden = false; return; }
+  contact = {name:name, email:email, phone:phone, website:f.website.value, consent:true};
+  step = 1; render();
+}
+
+var OTHER_MAX = 30;
+var otherText = {};
+
+function renderQuestion(i){
+  var Q = QUESTIONS[i];
+  var h = '<div class="panel">'+progress(i+2)+'<fieldset class="opts" style="min-width:0"><legend style="padding:0;width:100%"><h2>'+esc(Q.q)+'</h2></legend>';
+  Q.o.forEach(function(o){
+    h += '<label class="opt"><input type="radio" name="'+Q.k+'" value="'+o.v+'"'+(answers[Q.k]===o.v?' checked':'')+'><span>'+esc(o.t)+'</span></label>';
+  });
+  h += '</fieldset>';
+  var hasText = Q.o.some(function(o){ return o.text; });
+  if (hasText) {
+    var shown = answers[Q.k] && Q.o.filter(function(x){ return x.v===answers[Q.k]; })[0].text;
+    h += '<div class="other" id="other"'+(shown?'':' hidden')+'><label for="otherText">Опиши с няколко думи (до '+OTHER_MAX+' символа)</label>'+
+      '<input type="text" id="otherText" maxlength="'+OTHER_MAX+'" value="'+esc(otherText[Q.k]||"")+'">'+
+      '<p class="err" id="oerr" hidden>Моля, напиши отговора си.</p>'+
+      '<button type="button" class="btn full" id="otherGo" style="margin-top:1rem">Продължи</button></div>';
+  }
+  h += '<div class="nav"><button type="button" class="back" id="back">← Назад</button></div></div>';
+  flow.innerHTML = h;
+  function advance(picked){
+    if (picked && picked.block) { send("disqualified"); showDisqualified(picked); return; }
+    if (i === N-1) { finishQualified(); return; }
+    step = i+2; render();
+  }
+  flow.querySelectorAll('input[type=radio]').forEach(function(r){
+    r.addEventListener("change", function(){
+      answers[Q.k] = r.value;
+      var picked = Q.o.filter(function(x){ return x.v===r.value; })[0];
+      if (picked && picked.text) {
+        document.getElementById("other").hidden = false;
+        document.getElementById("otherText").focus();
+        return;
+      }
+      setTimeout(function(){ advance(picked); }, 220);
+    });
+  });
+  if (hasText) {
+    document.getElementById("otherGo").onclick = function(){
+      var v = document.getElementById("otherText").value.trim().slice(0, OTHER_MAX);
+      if (!v) { document.getElementById("oerr").hidden = false; return; }
+      otherText[Q.k] = v;
+      advance(Q.o.filter(function(x){ return x.v===answers[Q.k]; })[0]);
+    };
+  }
+  document.getElementById("back").onclick = function(){ step = i; render(); };
+}
+
+/* Праща контактите и отговорите към CRM-а: квалифицираните стават лийд в Closer портала,
+   неквалифицираните отиват в Setter портала (колона „Неквалифицирани") */
+function send(outcome){
+  var qa = [];
+  QUESTIONS.forEach(function(Q){
+    var v = answers[Q.k];
+    if (!v) return;
+    var o = Q.o.filter(function(x){ return x.v===v; })[0];
+    if (o) qa.push({q:Q.q, a:o.text ? "Друго: "+(otherText[Q.k]||"") : o.t});
+  });
+  var payload = {outcome:outcome, name:contact.name, phone:contact.phone, email:contact.email, source:LEAD_SOURCE, answers:qa};
+  return fetch(WEBHOOK_URL, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload), keepalive:true});
+}
+
+function finishQualified(){
+  flow.innerHTML = '<div class="panel result"><p>Един момент...</p></div>';
+  var done = false;
+  function go(){ if (done) return; done = true; showResult(); }
+  send("qualified").then(go, go);
+  setTimeout(go, 4000); /* ако API-то се бави, не държим човека */
+}
+
+function showDisqualified(o){
+  flow.innerHTML = '<div class="panel result no"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v5M12 16.5v.01"/><circle cx="12" cy="12" r="9"/></svg></div>'+
+    '<h2>'+esc(o.msg)+'</h2><p>'+esc(o.more)+'</p>'+
+    '<p>Благодарим ти за честните отговори. Ако искаш, започни от безплатните видеа в YouTube канала на Денис.</p><a class="btn ghost" href="'+YOUTUBE_URL+'" target="_blank" rel="noopener">Към YouTube канала</a></div>';
+  flow.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function showResult(){
+  flow.innerHTML = '<div class="panel result"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>'+
+    '<h2>Страхотно, разговорът е подходящ за теб</h2><p>Избери удобен ден и час за разговор с Денис.</p><div id="calendly"></div></div>';
+  loadCalendly(contact.name, contact.email);
+  flow.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function loadCalendly(name, email){
+  function init(){
+    window.Calendly.initInlineWidget({url:CALENDLY_URL+"?hide_gdpr_banner=1&primary_color=e2b13c&text_color=0b1f3f", parentElement:document.getElementById("calendly"), prefill:{name:name, email:email}});
+  }
+  if (window.Calendly) return init();
+  var l = document.createElement("link"); l.rel="stylesheet"; l.href="https://assets.calendly.com/assets/external/widget.css"; document.head.appendChild(l);
+  var s = document.createElement("script"); s.src="https://assets.calendly.com/assets/external/widget.js"; s.onload=init; document.head.appendChild(s);
+}
+
+function render(){ if (step === 0) renderContact(); else renderQuestion(step-1); }
+
+document.getElementById("start").addEventListener("click", function(){
+  flow.hidden = false;
+  document.getElementById("cta").hidden = true;
+  step = 0; render();
+  flow.scrollIntoView({behavior:"smooth", block:"start"});
+});
+</script>
+</body>
+</html>
