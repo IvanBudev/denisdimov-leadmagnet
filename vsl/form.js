@@ -9,7 +9,7 @@ const LEAD_SOURCE = 'VSL фуния'
 
 // Проследяване. Празно ID = съответният tracker не се зарежда.
 const META_PIXEL_ID = '4201980103438483'
-const GA4_ID = ''
+const GA4_ID = 'G-J4P81K6947'
 // Добави ?debug към адреса, за да виждаш събитията в конзолата.
 const TRACK_DEBUG = new URLSearchParams(location.search).has('debug')
 // ?test: пълният поток минава и пикселът получава събитията, но НЕ се праща лийд към CRM.
