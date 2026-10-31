@@ -577,10 +577,15 @@ async function submitAndShow(outcome) {
   } catch (err) {
     console.error('Webhook POST failed:', err)
   }
-  // Сигналите за „pixel conditioning": квалифициран кандидат е най-качественото
-  // събитие преди запазен час (Schedule).
-  if (outcome === 'qualified') track('QualifiedApplicant')
-  else track('DisqualifiedApplicant')
+  // Сигналите за „pixel conditioning": стандартното `Lead` се праща САМО за
+  // квалифицирани, за да може Meta да оптимизира „Maximize number of leads"
+  // върху хора, минали филтъра. Контактът в началото е `ContactSubmitted`.
+  if (outcome === 'qualified') {
+    track('Lead', {}, 'standard')
+    track('QualifiedApplicant')
+  } else {
+    track('DisqualifiedApplicant')
+  }
   showScreen(outcome === 'qualified' ? 'calendar' : 'disqualified')
 }
 
@@ -627,7 +632,7 @@ function init() {
     contact.name = name
     contact.phone = phone
     contact.email = email
-    track('Lead', {}, 'standard')
+    track('ContactSubmitted')
     renderQuestion(0)
   })
 }
