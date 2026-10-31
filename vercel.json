@@ -27,6 +27,8 @@
     { "source": "/webinar/replay/", "destination": "/webinar/replay/index.html" },
     { "source": "/feedback", "destination": "/feedback/index.html" },
     { "source": "/feedback/", "destination": "/feedback/index.html" },
+    { "source": "/vsl", "destination": "/vsl/index.html" },
+    { "source": "/vsl/", "destination": "/vsl/index.html" },
     { "source": "/qualify/", "destination": "https://forma-khaki-nine.vercel.app/" },
     { "source": "/qualify/:path*", "destination": "https://forma-khaki-nine.vercel.app/:path*" }
   ]

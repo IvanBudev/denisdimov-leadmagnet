@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Академия за мъжка увереност — Денис Димов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/vsl/styles.css">
+  <script src="/vsl/form.js" defer></script>
+</head>
+<body data-cal-bg="ffffff" data-cal-text="0f2b3d" data-cal-primary="0f2b3d">
+  <main class="wrap">
+    <header class="hero">
+      <h1>Колкото Повече Се Стараеш С Жените, Толкова По-малко Интерес Получаваш. Ето Защо.</h1>
+      <p class="sub">Безплатно видео за мъже над 30, които имат повтарящ се проблем с жените, въпреки че правят всичко „както трябва“. Ще разбереш защо усилието отблъсква привличането и какво правят мъжете, при които нещата се получават, без да са високи, богати или красиви...</p>
+    </header>
+
+    <section class="video" aria-label="Видео">
+      <div class="video-frame" id="video-frame"></div>    </section>
+
+    <section class="cta" id="cta">
+      <button class="btn btn-lg" type="button" data-action="start">Да, искам да кандидатствам</button>
+      <p class="cta-note">Отнема около 2 минути. Ако си подходящ, веднага си избираш час за разговор с Денис.</p>
+    </section>
+
+    <section class="apply" id="apply" hidden>
+      <section class="screen" id="screen-contact" hidden>
+        <h2>Остави контакт, за да продължим</h2>
+        <p class="lead">Данните ти не се споделят и не се продават. На тях ще получиш детайли за разговора.</p>
+        <form id="contact-form" novalidate>
+          <label>Име<input type="text" name="name" required autocomplete="name"></label>
+          <label>Телефон<input type="tel" name="phone" required autocomplete="tel" minlength="6"></label>
+          <label>Имейл<input type="email" name="email" required autocomplete="email"></label>
+          <p class="form-error" id="contact-error" hidden></p>
+          <div class="nav">
+            <button class="btn" type="submit" id="contact-submit">Продължи →</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="screen" id="screen-question" hidden>
+        <div class="progress"><span class="progress-bar" id="progress-bar"></span></div>
+        <p class="progress-label" id="progress-label"></p>
+
+        <h2 id="q-title"></h2>
+        <div class="options" id="q-options"></div>
+
+        <div class="nav">
+          <button class="btn-back" type="button" id="q-back" data-action="back">← Назад</button>
+          <button class="btn" type="button" id="q-next" data-action="next" disabled>Напред →</button>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-disqualified" hidden>
+        <div class="disq-icon">🙏</div>
+        <h2>Благодарим ти за отговорите</h2>
+        <p class="lead">В момента разговор с Денис не е за твоята ситуация. Академията има смисъл само когато проблемът е повтарящ се, поемаш отговорност за своята роля в него и искаш ментор до себе си, а от отговорите ти личи, че сега си на друг етап.</p>
+        <p class="lead">Можеш да започнеш от безплатните видеа в YouTube канала на Денис. Когато си готов да решиш проблема си с помощта на ментор, върни се и кандидатствай отново.</p>
+        <a class="btn btn-block" id="youtube-link" href="#" target="_blank" rel="noopener">Към YouTube канала на Денис</a>
+      </section>
+
+      <section class="screen" id="screen-calendar" hidden>
+        <h2 class="steps-title">Подходящ си. Избери си час за разговор с Денис.</h2>
+        <div class="calendar-embed" id="calendar-embed"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="page-footer">© Денис Димов</footer>
+</body>
+</html>
