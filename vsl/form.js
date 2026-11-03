@@ -3,7 +3,7 @@ const WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/qualified-l
 const CALENDAR_URL = 'https://calendly.com/denisdimov/new-meeting'
 const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@denisdimovtips'
 // Линк към VSL-а (Cloudflare R2, bucket vsl-video): YouTube/Vimeo embed адрес или директен .mp4. Празно = placeholder.
-const VIDEO_URL = 'https://pub-a97e396387c54e46817ea7e71de9cee1.r2.dev/vsl-720p.mp4'
+const VIDEO_URL = 'https://pub-a97e396387c54e46817ea7e71de9cee1.r2.dev/vsl-v5-720p.mp4'
 const OTHER_MAX_WORDS = 30
 const LEAD_SOURCE = 'VSL фуния'
 
