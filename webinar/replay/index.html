@@ -136,7 +136,7 @@ footer{position:relative;z-index:1;text-align:center;font-size:.85rem;color:var(
       <p class="event">Запис от уебинара</p>
       <h1>Запис от уебинара за <em>увереността с жени</em></h1>
       <p class="sub">Безплатно събитие с Денис Димов.</p>
-      <p class="start-note">Уебинарът започва от <b>26:12</b> минута на записа.</p>
+      <p class="start-note">Уебинарът започва от <b>16:48</b> минута на записа.</p>
     </header>
 
     <section class="video" aria-label="Запис на уебинара">
@@ -236,6 +236,7 @@ function renderContact(){
   '<div class="field"><label for="name">Име</label><input type="text" id="name" name="name" autocomplete="name" required value="'+esc(contact.name||"")+'"></div>'+
   '<div class="field"><label for="email">Имейл</label><input type="email" id="email" name="email" autocomplete="email" required value="'+esc(contact.email||"")+'"></div>'+
   '<div class="field"><label for="phone">Телефон</label><input type="tel" id="phone" name="phone" autocomplete="tel" required value="'+esc(contact.phone||"")+'"></div>'+
+  '<div class="field"><label for="age">На колко години си?</label><input type="number" id="age" name="age" inputmode="numeric" min="14" max="99" required value="'+esc(contact.age||"")+'"></div>'+
   '<div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>'+
   '<label class="consent"><input type="checkbox" id="consent" required'+(contact.consent?' checked':'')+'><span>Съгласен съм да се свържете с мен във връзка с разговора.</span></label>'+
   '<p class="err" id="err" hidden></p>'+
@@ -247,14 +248,15 @@ function renderContact(){
 function submitContact(e){
   e.preventDefault();
   var f = e.target, err = document.getElementById("err");
-  var name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim();
+  var name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim(), age = parseInt(f.age.value, 10);
   var bad = "";
   if (!name) bad = "Моля, въведи името си.";
   else if (!/^\S+@\S+\.\S+$/.test(email)) bad = "Моля, въведи валиден имейл.";
   else if (phone.replace(/\D/g,"").length < 7) bad = "Моля, въведи валиден телефон.";
+  else if (!(age >= 14 && age <= 99)) bad = "Моля, въведи на колко години си.";
   else if (!document.getElementById("consent").checked) bad = "Моля, потвърди съгласието.";
   if (bad) { err.textContent = bad; err.hidden = false; return; }
-  contact = {name:name, email:email, phone:phone, website:f.website.value, consent:true};
+  contact = {name:name, email:email, phone:phone, age:age, website:f.website.value, consent:true};
   step = 1; render();
 }
 
@@ -310,6 +312,7 @@ function renderQuestion(i){
    неквалифицираните отиват в Setter портала (колона „Неквалифицирани") */
 function send(outcome){
   var qa = [];
+  if (contact.age) qa.push({q:"На колко години си?", a:String(contact.age)});
   QUESTIONS.forEach(function(Q){
     var v = answers[Q.k];
     if (!v) return;
