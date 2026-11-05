@@ -344,7 +344,7 @@ const STEPS = [
 const answers = new Array(STEPS.length).fill(undefined)
 // freeTextAnswers[i] = въведеният текст за опция със свободен текст на STEPS[i]
 const freeTextAnswers = {}
-const contact = { name: '', phone: '', email: '' }
+const contact = { name: '', age: '', phone: '', email: '' }
 let currentIndex = 0
 let submitting = false
 
@@ -520,7 +520,8 @@ function goBack() {
 }
 
 function collectAnswers() {
-  return STEPS.map((step, i) => {
+  const ageAnswer = contact.age ? [{ q: 'На колко години си?', a: contact.age }] : []
+  return ageAnswer.concat(STEPS.map((step, i) => {
     const choice = answers[i]
     if (choice === undefined) return null
     const opt = step.options[choice]
@@ -529,7 +530,7 @@ function collectAnswers() {
       return { q: step.question, a: text ? `Друго: ${text}` : '' }
     }
     return { q: step.question, a: opt }
-  }).filter((x) => x && x.a)
+  }).filter((x) => x && x.a))
 }
 
 function renderCalendar() {
@@ -618,6 +619,8 @@ function init() {
     e.preventDefault()
     const form = e.target
     const name = form.name.value.trim()
+    const ageRaw = form.age.value.trim()
+    const age = parseInt(ageRaw.replace(/\D/g, ''), 10)
     const phone = form.phone.value.trim()
     const email = form.email.value.trim()
     const err = $('#contact-error')
@@ -627,9 +630,15 @@ function init() {
       err.hidden = false
       return
     }
+    if (!(age >= 14 && age <= 99)) {
+      err.textContent = 'Моля напиши на колко години си (число).'
+      err.hidden = false
+      return
+    }
     err.hidden = true
 
     contact.name = name
+    contact.age = String(age)
     contact.phone = phone
     contact.email = email
     track('ContactSubmitted')
