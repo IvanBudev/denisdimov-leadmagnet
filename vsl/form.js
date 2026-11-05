@@ -5,6 +5,8 @@ const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@denisdimovtips'
 const VIDEO_URL = 'https://pub-a97e396387c54e46817ea7e71de9cee1.r2.dev/vsl-v5-720p.mp4'
 const OTHER_MAX_WORDS = 30
 const LEAD_SOURCE = 'VSL фуния'
+// Отговор, който показва, че човекът иска да върне бившата си — веднага дисквалифициран.
+const EX_PATTERN = /бивш|върна|връщам|съберем|събера/i
 
 // Проследяване. Празно ID = съответният tracker не се зарежда.
 const META_PIXEL_ID = '4201980103438483'
@@ -268,12 +270,13 @@ const STEPS = [
     id: 'situation',
     question: 'Каква е ситуацията ти в момента?',
     options: [
-      'Има конкретна жена, която искам да върна или спечеля',
+      'Искам да върна бившата си приятелка',
+      'Има конкретна жена, която искам да спечеля',
       'Постоянно се провалям с различни жени',
       'Във връзка съм, но нещата не вървят в добра посока',
       { label: 'Друго — опиши накратко', freeText: true },
     ],
-    disqualifying: [],
+    disqualifying: [0],
   },
   {
     id: 'duration',
@@ -497,7 +500,8 @@ function goNext() {
   const step = STEPS[currentIndex]
   const choice = answers[currentIndex]
 
-  if (step.disqualifying.includes(choice)) {
+  const opt = step.options[choice]
+  if (step.disqualifying.includes(choice) || (optionIsFreeText(opt) && EX_PATTERN.test(freeTextAnswers[currentIndex] || ''))) {
     submitAndShow('disqualified')
     return
   }
@@ -510,8 +514,12 @@ function goNext() {
 }
 
 function goBack() {
-  if (currentIndex === 0) {
+  if (!$('#screen-age').hidden) {
     showScreen('contact')
+    return
+  }
+  if (currentIndex === 0) {
+    showScreen('age')
     return
   }
   renderQuestion(currentIndex - 1)
@@ -589,8 +597,6 @@ function init() {
     e.preventDefault()
     const form = e.target
     const name = form.name.value.trim()
-    const ageRaw = form.age.value.trim()
-    const age = parseInt(ageRaw.replace(/\D/g, ''), 10)
     const phone = form.phone.value.trim()
     const email = form.email.value.trim()
     const err = $('#contact-error')
@@ -600,18 +606,27 @@ function init() {
       err.hidden = false
       return
     }
+    err.hidden = true
+
+    contact.name = name
+    contact.phone = phone
+    contact.email = email
+    track('ContactSubmitted')
+    showScreen('age')
+  })
+
+  // Стъпка 2 — възрастта. При валиден submit отива на Q1.
+  $('#age-form').addEventListener('submit', (e) => {
+    e.preventDefault()
+    const age = parseInt(e.target.age.value.replace(/\D/g, ''), 10)
+    const err = $('#age-error')
     if (!(age >= 14 && age <= 99)) {
       err.textContent = 'Моля напиши на колко години си (число).'
       err.hidden = false
       return
     }
     err.hidden = true
-
-    contact.name = name
     contact.age = String(age)
-    contact.phone = phone
-    contact.email = email
-    track('ContactSubmitted')
     renderQuestion(0)
   })
 }

@@ -170,6 +170,7 @@ var QUESTIONS = [
     {v:"freeze", t:"Сковавам се и не смея да направя първата стъпка"},
     {v:"friend", t:"Правя всичко правилно, а накрая пак съм просто приятел"},
     {v:"repeat", t:"Един и същ сценарий се повтаря с различни жени"},
+    {v:"ex", t:"Искам да върна бившата си приятелка", block:true, msg:"Денис не може да ти бъде полезен в тази ситуация.", more:"Не работим с мъже, чиято цел е да върнат бивша приятелка. Затова на база на отговора ти разговорът няма да ти бъде полезен и няма да можем да помогнем с твоята ситуация."},
     {v:"other", t:"Нещо друго"}]},
   {k:"duration", q:"От колко време ти е трудно с това?", o:[
     {v:"lt1", t:"До 1 година"},
@@ -223,9 +224,9 @@ var QUESTIONS = [
 var flow = document.getElementById("flow");
 var answers = {};
 var contact = {};
-var step = 0;               // 0 = контакти, 1..N = въпроси
+var step = 0;               // 0 = контакти, 1 = години, 2..N+1 = въпроси
 var N = QUESTIONS.length;
-var TOTAL = N + 1;
+var TOTAL = N + 2;
 
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 function progress(i){ return '<div class="progress"><div class="bar"><i style="transform:scaleX('+(i/TOTAL)+')"></i></div><span class="count">'+i+' от '+TOTAL+'</span></div>'; }
@@ -236,7 +237,6 @@ function renderContact(){
   '<div class="field"><label for="name">Име</label><input type="text" id="name" name="name" autocomplete="name" required value="'+esc(contact.name||"")+'"></div>'+
   '<div class="field"><label for="email">Имейл</label><input type="email" id="email" name="email" autocomplete="email" required value="'+esc(contact.email||"")+'"></div>'+
   '<div class="field"><label for="phone">Телефон</label><input type="tel" id="phone" name="phone" autocomplete="tel" required value="'+esc(contact.phone||"")+'"></div>'+
-  '<div class="field"><label for="age">На колко години си?</label><input type="number" id="age" name="age" inputmode="numeric" min="14" max="99" required value="'+esc(contact.age||"")+'"></div>'+
   '<div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>'+
   '<label class="consent"><input type="checkbox" id="consent" required'+(contact.consent?' checked':'')+'><span>Съгласен съм да се свържете с мен във връзка с разговора.</span></label>'+
   '<p class="err" id="err" hidden></p>'+
@@ -245,27 +245,46 @@ function renderContact(){
   document.getElementById("cform").addEventListener("submit", submitContact);
 }
 
+function renderAge(){
+  var h = '<div class="panel">'+progress(2)+'<h2>На колко години си?</h2>'+
+  '<form id="aform" novalidate>'+
+  '<div class="field"><label for="age">Години</label><input type="text" id="age" name="age" inputmode="numeric" autocomplete="off" required value="'+esc(contact.age||"")+'"></div>'+
+  '<p class="err" id="aerr" hidden></p>'+
+  '<div class="nav"><button type="button" class="back" id="aback">← Назад</button></div>'+
+  '<button type="submit" class="btn full" style="margin-top:1rem">Продължи</button></form></div>';
+  flow.innerHTML = h;
+  document.getElementById("aback").onclick = function(){ step = 0; render(); };
+  document.getElementById("aform").addEventListener("submit", function(e){
+    e.preventDefault();
+    var age = parseInt(document.getElementById("age").value.replace(/\D/g,""), 10);
+    if (!(age >= 14 && age <= 99)) { var er = document.getElementById("aerr"); er.textContent = "Моля, напиши на колко години си (число)."; er.hidden = false; return; }
+    contact.age = String(age);
+    step = 2; render();
+  });
+}
+
 function submitContact(e){
   e.preventDefault();
   var f = e.target, err = document.getElementById("err");
-  var name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim(), age = parseInt(f.age.value, 10);
+  var name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim();
   var bad = "";
   if (!name) bad = "Моля, въведи името си.";
   else if (!/^\S+@\S+\.\S+$/.test(email)) bad = "Моля, въведи валиден имейл.";
   else if (phone.replace(/\D/g,"").length < 7) bad = "Моля, въведи валиден телефон.";
-  else if (!(age >= 14 && age <= 99)) bad = "Моля, въведи на колко години си.";
   else if (!document.getElementById("consent").checked) bad = "Моля, потвърди съгласието.";
   if (bad) { err.textContent = bad; err.hidden = false; return; }
-  contact = {name:name, email:email, phone:phone, age:age, website:f.website.value, consent:true};
+  contact = {name:name, email:email, phone:phone, age:contact.age, website:f.website.value, consent:true};
   step = 1; render();
 }
 
 var OTHER_MAX = 30;
+var EX_PATTERN = /бивш|върна|връщам|съберем|събера/i;   // свободен текст за връщане на бивша = дисквалификация
+var EX_O = {block:true, msg:"Денис не може да ти бъде полезен в тази ситуация.", more:"Не работим с мъже, чиято цел е да върнат бивша приятелка. Затова на база на отговора ти разговорът няма да ти бъде полезен и няма да можем да помогнем с твоята ситуация."};
 var otherText = {};
 
 function renderQuestion(i){
   var Q = QUESTIONS[i];
-  var h = '<div class="panel">'+progress(i+2)+'<fieldset class="opts" style="min-width:0"><legend style="padding:0;width:100%"><h2>'+esc(Q.q)+'</h2></legend>';
+  var h = '<div class="panel">'+progress(i+3)+'<fieldset class="opts" style="min-width:0"><legend style="padding:0;width:100%"><h2>'+esc(Q.q)+'</h2></legend>';
   Q.o.forEach(function(o){
     h += '<label class="opt"><input type="radio" name="'+Q.k+'" value="'+o.v+'"'+(answers[Q.k]===o.v?' checked':'')+'><span>'+esc(o.t)+'</span></label>';
   });
@@ -283,7 +302,7 @@ function renderQuestion(i){
   function advance(picked){
     if (picked && picked.block) { send("disqualified"); showDisqualified(picked); return; }
     if (i === N-1) { finishQualified(); return; }
-    step = i+2; render();
+    step = i+3; render();
   }
   flow.querySelectorAll('input[type=radio]').forEach(function(r){
     r.addEventListener("change", function(){
@@ -302,10 +321,11 @@ function renderQuestion(i){
       var v = document.getElementById("otherText").value.trim().slice(0, OTHER_MAX);
       if (!v) { document.getElementById("oerr").hidden = false; return; }
       otherText[Q.k] = v;
+      if (EX_PATTERN.test(v)) { advance(EX_O); return; }
       advance(Q.o.filter(function(x){ return x.v===answers[Q.k]; })[0]);
     };
   }
-  document.getElementById("back").onclick = function(){ step = i; render(); };
+  document.getElementById("back").onclick = function(){ step = i+1; render(); };
 }
 
 /* Праща контактите и отговорите към CRM-а: квалифицираните стават лийд в Closer портала,
@@ -354,7 +374,7 @@ function loadCalendly(name, email){
   var s = document.createElement("script"); s.src="https://assets.calendly.com/assets/external/widget.js"; s.onload=init; document.head.appendChild(s);
 }
 
-function render(){ if (step === 0) renderContact(); else renderQuestion(step-1); }
+function render(){ if (step === 0) renderContact(); else if (step === 1) renderAge(); else renderQuestion(step-2); }
 
 document.getElementById("start").addEventListener("click", function(){
   flow.hidden = false;

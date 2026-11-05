@@ -29,12 +29,23 @@
         <p class="lead">Данните ти не се споделят и не се продават. На тях ще получиш детайли за разговора.</p>
         <form id="contact-form" novalidate>
           <label>Име<input type="text" name="name" required autocomplete="name"></label>
-          <label>На колко години си?<input type="text" name="age" required inputmode="numeric" autocomplete="off"></label>
           <label>Телефон<input type="tel" name="phone" required autocomplete="tel" minlength="6"></label>
           <label>Имейл<input type="email" name="email" required autocomplete="email"></label>
           <p class="form-error" id="contact-error" hidden></p>
           <div class="nav">
             <button class="btn" type="submit" id="contact-submit">Продължи →</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="screen" id="screen-age" hidden>
+        <h2>На колко години си?</h2>
+        <form id="age-form" novalidate>
+          <label>Години<input type="text" name="age" required inputmode="numeric" autocomplete="off"></label>
+          <p class="form-error" id="age-error" hidden></p>
+          <div class="nav">
+            <button class="btn-back" type="button" data-action="back">← Назад</button>
+            <button class="btn" type="submit">Продължи →</button>
           </div>
         </form>
       </section>
