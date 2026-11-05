@@ -1,6 +1,5 @@
 // ─── Конфигурация ─────────────────────────────────────────────────────────────
 const WEBHOOK_URL = 'https://crm-denis-dimov.vercel.app/api/webhooks/qualified-lead?token=cb-secret-denisdimov-hv4e37cislfo05r6tq9j'
-const CALENDAR_URL = 'https://calendly.com/denisdimov/new-meeting'
 const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@denisdimovtips'
 // Линк към VSL-а (Cloudflare R2, bucket vsl-video): YouTube/Vimeo embed адрес или директен .mp4. Празно = placeholder.
 const VIDEO_URL = 'https://pub-a97e396387c54e46817ea7e71de9cee1.r2.dev/vsl-v5-720p.mp4'
@@ -363,7 +362,6 @@ function wordCount(text) {
 function showScreen(name) {
   document.querySelectorAll('.screen').forEach((el) => { el.hidden = true })
   $(`#screen-${name}`).hidden = false
-  if (name === 'calendar') renderCalendar()
   $('#apply').scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
@@ -533,27 +531,6 @@ function collectAnswers() {
   }).filter((x) => x && x.a))
 }
 
-function renderCalendar() {
-  const box = $('#calendar-embed')
-  if (box.dataset.loaded) return
-  // Цветовете на календара следват темата на страницата (data-cal-* на <body>).
-  const d = document.body.dataset
-  const params = new URLSearchParams({
-    hide_gdpr_banner: '1',
-    background_color: d.calBg || '111111',
-    text_color: d.calText || 'ffffff',
-    primary_color: d.calPrimary || 'e02020',
-    name: contact.name,
-    email: contact.email,
-  })
-  const iframe = document.createElement('iframe')
-  iframe.src = `${CALENDAR_URL}?${params.toString()}`
-  iframe.setAttribute('loading', 'lazy')
-  iframe.title = 'Запази час за разговор'
-  box.appendChild(iframe)
-  box.dataset.loaded = '1'
-}
-
 // Един POST на финала — и за квалифицираните, и за дисквалифицираните (CRM-ът ги
 // разпознава по `outcome`; дисквалифицираните отиват в setter базата за nurture).
 // Съответният екран се показва и при мрежова грешка.
@@ -587,7 +564,7 @@ async function submitAndShow(outcome) {
   } else {
     track('DisqualifiedApplicant')
   }
-  showScreen(outcome === 'qualified' ? 'calendar' : 'disqualified')
+  showScreen(outcome === 'qualified' ? 'confirmed' : 'disqualified')
 }
 
 function startApplication() {
@@ -600,13 +577,6 @@ function init() {
   loadTrackers()
   $('#youtube-link').href = YOUTUBE_CHANNEL_URL
   renderVideo()
-
-  // Calendly съобщава в страницата, когато човекът реално е запазил час.
-  window.addEventListener('message', (e) => {
-    if (e.origin === 'https://calendly.com' && e.data?.event === 'calendly.event_scheduled') {
-      track('Schedule', {}, 'standard')
-    }
-  })
 
   document.addEventListener('click', (e) => {
     const action = e.target.closest('[data-action]')?.dataset.action
