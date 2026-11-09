@@ -5,8 +5,8 @@ const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@denisdimovtips'
 const VIDEO_URL = 'https://pub-a97e396387c54e46817ea7e71de9cee1.r2.dev/vsl-v5-720p.mp4'
 const OTHER_MAX_WORDS = 30
 const LEAD_SOURCE = 'VSL фуния'
-// Отговор, който показва, че човекът иска да върне бившата си — веднага дисквалифициран.
-const EX_PATTERN = /бивш|върна|връщам|съберем|събера/i
+// Отговор, който показва, че човекът иска да върне или спечели конкретна жена — веднага дисквалифициран.
+const EX_PATTERN = /бивш|върна|връщам|съберем|събера|конкретна жена|конкретно момиче/i
 
 // Проследяване. Празно ID = съответният tracker не се зарежда.
 const META_PIXEL_ID = '4201980103438483'
@@ -276,7 +276,7 @@ const STEPS = [
       'Във връзка съм, но нещата не вървят в добра посока',
       { label: 'Друго — опиши накратко', freeText: true },
     ],
-    disqualifying: [0],
+    disqualifying: [0, 1],
   },
   {
     id: 'duration',
