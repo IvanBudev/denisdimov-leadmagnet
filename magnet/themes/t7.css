@@ -1,0 +1,28 @@
+/* Тема 7: „Рубин“. Черно с пламтящо червено сияние. Кинематографично, тъмно, със светещи бутони. */
+:root {
+  --bg: #0b0b0e; --ink: #f4eaea; --ink-2: #d8c9c9; --muted: #a09090; --line: #2a1519; --alt-bg: #111116; --eyebrow: #ff4d5e;
+  --display: 'Montserrat', system-ui, sans-serif; --body: 'Onest', system-ui, sans-serif; --h-weight: 800; --h-ls: -.02em;
+  --hero-bg: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(227,17,43,.6), transparent 70%), #0b0b0e;
+  --hero-fg: #ffffff; --hero-fg-2: #d9c5c8; --hero-accent: #ff4d5e;
+  --get-bg: #0f0f13;
+  --accent: #e3112b; --accent-h: #ff2d44; --accent-ink: #ffffff; --r-btn: 10px; --btn-ls: .04em;
+  --btn-shadow: 0 0 30px rgba(227,17,43,.55), 0 10px 24px -10px rgba(227,17,43,.8);
+  --card-bg: #17171d; --card-fg: #f4eaea; --card-fg-2: #d8c9c9; --card-muted: #a09090; --r-card: 16px; --r-input: 10px;
+  --card-shadow: 0 0 60px -10px rgba(227,17,43,.35); --card-border: 1px solid #3a1c22; --input-line: #34343e; --input-bg: #101015;
+  --focus: #ff4d5e; --focus-ring: 0 0 0 4px rgba(255,77,94,.25);
+  --q-bg: #15151a; --avatar-bg: #3a0f17; --avatar-fg: #ff4d5e; --stars: #ff4d5e; --r-photo: 50%;
+  --final-bg: #0b0b0e; --final-fg: #ffffff; --final-fg-2: #d9c5c8;
+  --cv-a: #e3112b; --cv-b: #6b0716; --cv-ink: #ffffff; --cv-ink-2: #ffd9dd; --cv-muted: #ffb3bb; --cv-ring: rgba(255,255,255,.1);
+  --cv-spine: #0b0b0e; --cv-spine-2: #ffffff; --cv-tag-bg: #ffffff; --cv-tag-ink: #e3112b; --cv-label: #ffd9dd; --cv-rule: #ffffff;
+  --cv-radius: 4px 12px 12px 4px;
+  --sheet-1: #1b1b22; --sheet-2: #121217; --sheet-3: #0c0c10; --sheet-line: #3a1c22; --page-line: #3a3a46; --page-title: #ff4d5e;
+  --mock-shadow: drop-shadow(0 0 40px rgba(227,17,43,.55));
+}
+.cover strong { font-size: 30px; }
+@media (min-width: 880px) { .cover strong { font-size: 52px; } }
+.final { background: radial-gradient(ellipse 80% 70% at 50% 120%, rgba(227,17,43,.5), transparent 70%), #0b0b0e; }
+.callout::before { box-shadow: 0 0 14px rgba(255,77,94,.9); }
+.tt-btn { box-shadow: 0 0 16px rgba(227,17,43,.6); color: #fff; }
+.video-item { border: 1px solid #3a1c22; }
+.tt-slide img { border-color: #3a1c22; }
+.quote { border-color: #3a1c22; }
