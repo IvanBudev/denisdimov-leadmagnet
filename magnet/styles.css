@@ -201,5 +201,6 @@ a { color: inherit; }
   .bio { grid-template-columns: 170px 1fr; gap: 36px; align-items: start; }
   .bio-photo { width: 170px; height: 170px; }
   .video-grid { grid-template-columns: 1fr 1fr; }
+  .video-grid > .video-item:last-child:nth-child(odd) { grid-column: 1/-1; justify-self: center; width: calc(50% - 7px); }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

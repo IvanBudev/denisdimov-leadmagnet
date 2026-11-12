@@ -822,6 +822,8 @@ input:focus-visible { outline: 3px solid rgba(224,32,32,.55); outline-offset: 3p
   .video-grid { grid-template-columns: 1fr 1fr; }
   .video-item video { max-height: 320px; }
 }
+  @media (min-width: 760px) { .video-grid > .video-item:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - .6rem)} }
+
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

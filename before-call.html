@@ -355,6 +355,8 @@
     .video-grid { grid-template-columns: 1fr 1fr; }
     .video-item video { max-height: 340px; }
   }
+  @media (min-width: 900px) { .video-grid > .video-item:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 14px)} }
+
 
   /* STORY SECTION */
   .story {
@@ -735,6 +737,11 @@
       <div class="video-item">
         <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.jpg">
           <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-2.mp4" type="video/mp4">
+        </video>
+      </div>
+    <div class="video-item">
+        <video controls preload="none" poster="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-5.jpg">
+          <source src="https://raw.githubusercontent.com/agatev200-hash/denis-social-proof/main/videos/video-5.mp4" type="video/mp4">
         </video>
       </div>
     </div>
