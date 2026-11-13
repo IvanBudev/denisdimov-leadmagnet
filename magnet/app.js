@@ -14,7 +14,7 @@ var THANK_YOU_URL = '/magnet/thank-you.html';
 var VARIANT = document.body.getAttribute('data-variant') || 'A';
 
 // Източникът включва варианта, за да се сравняват двата в CRM-а.
-var LEAD_SOURCE = 'Лийд магнит · Капанът на преследвача'; // фуния · име на ресурса: CRM-ът го познава и го показва като тема
+var LEAD_SOURCE = 'Лийд магнит · Тя гони'; // фуния · име на ресурса: CRM-ът го познава и го показва като тема
 
 // ?test в адреса пропуска CRM-а (за тестове, лийдът не се записва).
 var TEST_MODE = /[?&]test(=|&|$)/.test(location.search);
